@@ -6,19 +6,20 @@ import 'package:flutter/material.dart';
 
 class AppColorSchemes {
   static const ColorScheme lightColorScheme = ColorScheme(
-    primary: Color(0xFFB93C5D),
+    primary: Color(0XFF6A62B6),
     primaryContainer: Color(0xFFB93C5D), // Add a primaryContainer color to avoid errors
-    onPrimary: Colors.black,
-    secondary: Color(0xFFEFF3F3),
+    onPrimary: Colors.white,
+    secondary: Color(0xffB4B0DA),
     secondaryContainer: Color(0xFFEFF3F3), // Add a secondaryContainer color to avoid errors
     onSecondary: Color(0xFF322942),
     error: Colors.redAccent,
     onError: Colors.white,
-    background: Color(0xFFE6EBEB),
-    onBackground: Colors.white,
+    background: Colors.white,
+    onBackground: Colors.black,
     surface: Color(0xFFFAFBFB),
     onSurface: Color(0xFF241E30),
     brightness: Brightness.light,
+
   );
 
   static const ColorScheme darkColorScheme = ColorScheme(
