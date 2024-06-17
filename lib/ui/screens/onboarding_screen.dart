@@ -21,6 +21,7 @@ class OnboardingScreen extends StatelessWidget {
                 "assets/images/img_rectangle_19.png",
                 height: 480,
                 width: double.maxFinite,
+                fit: BoxFit.cover,
               ),
               SizedBox(height: 16),
               Padding(

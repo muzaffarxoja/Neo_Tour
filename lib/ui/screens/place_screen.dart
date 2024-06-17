@@ -2,139 +2,179 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PlaceScreen extends StatelessWidget {
-  const PlaceScreen({Key? key})
-      : super(
-          key: key,
-        );
-
-
+  const PlaceScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-         backgroundColor: Color(0XFFFFFFFF),
-        body: Column(
+    return Scaffold(
+      backgroundColor: const Color(0XFFFFFFFF),
+      body: SafeArea(
+        child: Stack(
           children: [
-            _buildStackBackSection(context),
-            Expanded(
-              child: SingleChildScrollView(
-                  child: _buildMountFujiSection(context),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Image.asset(
+                "assets/images/img_rectangle_31.png",
+                height: 289,
+                width: double.infinity,
+                fit: BoxFit.cover,
               ),
             ),
-
-
-
+            Positioned.fill(
+              child: _buildMountFujiSection(context),
+            ),
+            Positioned(
+              top: 40, // Adjust the top position to place the header correctly
+              left: 15,
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 24, // Set the desired height
+                    width: 24, // Set the desired width
+                    child: IconButton(
+                      padding: EdgeInsets.zero, // Remove default padding
+                      iconSize: 24, // Adjust the icon size
+                      onPressed: () {
+                        //code to execute when this button is pressed
+                      },
+                      icon: Image.asset('assets/icons/back_button.png'),
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  // Add some space between the icon and the text
+                  const Text(
+                    "Back",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
+
   /// Section Widget
   Widget _buildMountFujiSection(BuildContext context) {
-    return Container(
-
-
-      width: double.maxFinite,
-      margin: EdgeInsets.only(left: 2),
-      child: Column(
-
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Mount Fuji",
-            style: TextStyle(
-                            color: Color(0XFF141414),
-              fontSize: 24,
-              // fontFamily: 'SF Pro Display',
-              fontWeight: FontWeight.w900,
-            ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.only(
+        top: 250,
+      ),
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Color(0XFFFFFFFF),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(24),
           ),
-          SizedBox(height: 10),
-          SizedBox(
-            width: double.maxFinite,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                SizedBox(
-                  height: 14,
-                  width: 14,
-                  child: Image.asset(
-                    "assets/icons/location.png",
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 8),
-                  child: Text(
-                    "Honshu, Japan",
-                    style: TextStyle(
-                      color: Color(0XFF141414),
-                      fontSize: 12,
-                      fontFamily: 'SF Pro Display',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            "Description",
-            style: TextStyle(
-              color: Color(0XFF141414),
-              fontSize: 20,
-              fontFamily: 'SF Pro Display',
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          SizedBox(height: 12),
-          Text(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim eget amet viverra eget fames rhoncus. Eget enim venenatis enim porta egestas malesuada et. Consequat mauris lacus euismod montes.",
-            maxLines: 4,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: Color(0XFF141414),
-              fontSize: 16,
-              fontFamily: 'SF Pro Display',
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          SizedBox(height: 28),
-          Text(
-            "Reviews",
-            style: TextStyle(
-              color: Color(0XFF141414),
-              fontSize: 20,
-              fontFamily: 'SF Pro Display',
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          SizedBox(height: 16),
-          _MyBuildViewSection(context),
-
-          //_buildReviewSection(context),
-          SizedBox(height: 24),
-          _buildBookNowButton(context),
-          SizedBox(height: 24),
-          Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: 124,
-              child: Divider(
-                height: 4,
-                thickness: 4,
-                color: Color(0XFFC8CBD2),
+        ),
+        padding: const EdgeInsets.only(
+          left: 16,
+          right: 16,
+          top: 40,
+        ),
+        width: double.maxFinite,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Mount Fuji",
+              style: TextStyle(
+                color: Color(0XFF141414),
+                fontSize: 24,
+                // fontFamily: 'SF Pro Display',
+                fontWeight: FontWeight.w900,
               ),
             ),
-          )
-        ],
+            const SizedBox(height: 10),
+            SizedBox(
+              width: double.maxFinite,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  SizedBox(
+                    height: 14,
+                    width: 14,
+                    child: Image.asset(
+                      "assets/icons/location.png",
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Text(
+                      "Honshu, Japan",
+                      style: TextStyle(
+                        color: Color(0XFF141414),
+                        fontSize: 12,
+                        fontFamily: 'SF Pro Display',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              "Description",
+              style: TextStyle(
+                color: Color(0XFF141414),
+                fontSize: 20,
+                fontFamily: 'SF Pro Display',
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim eget amet viverra eget fames rhoncus. Eget enim venenatis enim porta egestas malesuada et. Consequat mauris lacus euismod montes.",
+              maxLines: 4,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: Color(0XFF141414),
+                fontSize: 16,
+                fontFamily: 'SF Pro Display',
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const SizedBox(height: 28),
+            const Text(
+              "Reviews",
+              style: TextStyle(
+                color: Color(0XFF141414),
+                fontSize: 20,
+                fontFamily: 'SF Pro Display',
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 16),
+            _MyBuildViewSection(context),
+
+            //_buildReviewSection(context),
+            const SizedBox(height: 24),
+            _buildBookNowButton(context),
+            const SizedBox(height: 24),
+            const Align(
+              alignment: Alignment.center,
+              child: SizedBox(
+                width: 124,
+                child: Divider(
+                  height: 4,
+                  thickness: 4,
+                  color: Color(0XFFC8CBD2),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
-
-
-
 
   /// Section Widget
   Widget _buildStackBackSection(BuildContext context) {
@@ -163,8 +203,9 @@ class PlaceScreen extends StatelessWidget {
                   icon: Image.asset('assets/icons/back_button.png'),
                 ),
               ),
-              SizedBox(width: 5), // Add some space between the icon and the text
-              Text(
+              const SizedBox(width: 5),
+              // Add some space between the icon and the text
+              const Text(
                 "Back",
                 style: TextStyle(
                   color: Colors.white,
@@ -179,21 +220,17 @@ class PlaceScreen extends StatelessWidget {
     );
   }
 
-
-
-
   /// Section Widget
   Widget _MyBuildViewSection(BuildContext context) {
     return Column(
       children: [
-      _MyBuildTextReview(review: ''),
-      _MyBuildImageRewiew(img: ''),
-  ]
+        _MyBuildTextReview(review: ''),
+        _MyBuildImageRewiew(img: ''),
+      ],
     );
   }
 
   Widget _MyBuildTextReview({required String review}) {
-
     return SizedBox(
       width: double.maxFinite,
       child: Column(
@@ -213,7 +250,7 @@ class PlaceScreen extends StatelessWidget {
                     width: 24,
                   ),
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: EdgeInsets.only(left: 8),
@@ -231,8 +268,8 @@ class PlaceScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 12),
-          Text(
+          const SizedBox(height: 12),
+          const Text(
             "That was such a nice place. The most beautiful place I’ve ever seen. My advice to everyone not to forget to take warm coat",
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
@@ -248,10 +285,8 @@ class PlaceScreen extends StatelessWidget {
     );
   }
 
-
   Widget _MyBuildImageRewiew({required String img}) {
-
-    return  SizedBox(
+    return SizedBox(
       width: double.maxFinite,
       child: Column(
         children: [
@@ -270,7 +305,7 @@ class PlaceScreen extends StatelessWidget {
                     width: 24,
                   ),
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: EdgeInsets.only(left: 8),
@@ -288,17 +323,18 @@ class PlaceScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 12),
-         Align(
-           alignment: Alignment.bottomRight,
-             child: Image.asset(
-                 width: 195,
-                 height: 185,
-                 "assets/images/img_rectangle_3.png")),
+          const SizedBox(height: 12),
+          Align(
+              alignment: Alignment.bottomRight,
+              child: Image.asset(
+                  width: 195,
+                  height: 185,
+                  "assets/images/img_rectangle_3.png")),
         ],
       ),
     );
   }
+
   /// Section Widget
   Widget _buildBookNowButton(BuildContext context) {
     return SizedBox(
@@ -306,7 +342,7 @@ class PlaceScreen extends StatelessWidget {
       height: 50,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0XFF6A62B6),
+          backgroundColor: const Color(0XFF6A62B6),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
               24,
@@ -316,13 +352,13 @@ class PlaceScreen extends StatelessWidget {
             vertical: -4,
             horizontal: -4,
           ),
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 30,
             vertical: 14,
           ),
         ),
         onPressed: () {},
-        child: Text(
+        child: const Text(
           "Book Now",
           style: TextStyle(
             color: Color(0XFFFFFFFF),
@@ -335,11 +371,9 @@ class PlaceScreen extends StatelessWidget {
     );
   }
 
-
-
   /// Section Widget
   Widget _buildReviewText(BuildContext context) {
-    return Text(
+    return const Text(
       "That was such a nice place. The most beautiful place I’ve ever seen. My advice to everyone not to forget to take warm coat",
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
@@ -372,7 +406,7 @@ class PlaceScreen extends StatelessWidget {
                     width: 24,
                   ),
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: EdgeInsets.only(left: 8),
@@ -392,7 +426,7 @@ class PlaceScreen extends StatelessWidget {
           ),
           Container(
             width: double.maxFinite,
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 12,
               right: 28,
             ),
@@ -400,7 +434,7 @@ class PlaceScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Align(
+                const Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
                     "Guilin, China",
@@ -413,7 +447,7 @@ class PlaceScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(bottom: 2),
+                  padding: const EdgeInsets.only(bottom: 2),
                   child: Image.asset(
                     "assets/images/img_rectangle_3.png",
                     height: 184,
@@ -423,13 +457,13 @@ class PlaceScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 22),
+          const SizedBox(height: 22),
           Align(
             alignment: Alignment.centerLeft,
             child: Container(
               height: 40,
               width: 184,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0XFF9F9F9F),
                 borderRadius: BorderRadius.vertical(
                   bottom: Radius.circular(10),
@@ -437,7 +471,7 @@ class PlaceScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           _buildReviewText(context)
         ],
       ),
@@ -447,7 +481,7 @@ class PlaceScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildViewRowSection(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 16,
         right: 12,
       ),
