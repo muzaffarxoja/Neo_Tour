@@ -49,7 +49,6 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
                 useEmoji: true,
               ),
               ignoreBlank: false,
-
               autoValidateMode: AutovalidateMode.disabled,
               selectorTextStyle: TextStyle(color: Colors.black),
               initialValue: intNumber,

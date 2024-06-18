@@ -26,7 +26,7 @@ class PlaceScreen extends StatelessWidget {
               child: _buildMountFujiSection(context),
             ),
             Positioned(
-              top: 40, // Adjust the top position to place the header correctly
+              top: 20, // Adjust the top position to place the header correctly
               left: 15,
               child: Row(
                 children: [
