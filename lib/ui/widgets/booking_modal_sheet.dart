@@ -86,6 +86,15 @@ class BookingModalSheet extends StatelessWidget {
                 return Text(myPhoneNumber.fullNumberPr.phoneNumber.toString());
               },
             ),
+            const SizedBox(height: 12),
+            Text(
+              'Number of people',
+              style: TextStyle(
+                  color: Color(0XFF888888),
+                  fontSize: 14,
+                  //fontFamily: 'SF Pro Display',
+                  fontWeight: FontWeight.w400),
+            ),
             CounterWidget(),
             SizedBox(height: 50,),
             SizedBox(
