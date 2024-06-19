@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:neo_tour/provider/my_phone_number.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/counter_and_number.dart';
@@ -65,7 +66,14 @@ class BookingModalSheet extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  CounterWidget(),
+
+            Consumer<MyPhoneNumber>(
+              builder: (context, myPhoneNumber, child) {
+                return Text(myPhoneNumber.phoneNumber.toString());
+              },
+            ),
+
+            CounterWidget(),
 
                   ElevatedButton(onPressed: () {
                     print('Phone number: {fullNumber.phoneNumber}');
@@ -80,8 +88,7 @@ class BookingModalSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kindacode.com'),
-      ),
+            ),
       body: Container(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
@@ -117,6 +124,7 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
             child: InternationalPhoneNumberInput(
               onInputChanged: (PhoneNumber number) {
                 fullNumber = number;
+                context.read<MyPhoneNumber>().phoneNumber = number;
                 print(number.phoneNumber); // Print full phone number to console
               },
               selectorConfig: SelectorConfig(
@@ -175,4 +183,5 @@ class CounterWidget extends StatelessWidget {
           ]
       );
   }
-}   
+}
+
