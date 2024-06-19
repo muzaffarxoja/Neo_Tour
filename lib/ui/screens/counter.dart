@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neo_tour/provider/counter.dart';
+import 'package:neo_tour/provider/counter_and_number.dart';
 import 'package:provider/provider.dart';
 
 
@@ -13,14 +13,14 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => Counter(),
       child: const MaterialApp(
-        home: CounterPage(),
+        home: CounterWidget(),
       ),
     );
   }
 }
 
-class CounterPage extends StatelessWidget {
-  const CounterPage({Key? key}) : super(key: key);
+class CounterWidget extends StatelessWidget {
+  const CounterWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
