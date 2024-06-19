@@ -66,7 +66,8 @@ class BookingModalSheet extends StatelessWidget {
               child: TextField(
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 20.0),
                     border: InputBorder.none,
                     hintStyle:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
@@ -86,6 +87,7 @@ class BookingModalSheet extends StatelessWidget {
               },
             ),
             CounterWidget(),
+            SizedBox(height: 50,),
             SizedBox(
               width: double.maxFinite,
               height: 50,
@@ -196,15 +198,66 @@ class CounterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final counter = Provider.of<Counter>(context);
 
-    return Row(children: [
-      IconButton(
-        onPressed: counter.increment,
-        icon: const Icon(Icons.add),
-      ),
-      IconButton(
-        onPressed: counter.decrement,
-        icon: const Icon(Icons.add_chart),
-      ),
-    ]);
+    return Row(
+      children: [
+        Container(
+          height: 36,
+          width: 104,
+          decoration: BoxDecoration(
+              color: Color(0xffF3F3F3),
+              borderRadius: BorderRadius.circular(10)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                child: GestureDetector(
+                  onTap: counter.decrement,
+                  child: Icon(color: Colors.white, Icons.remove),
+                ),
+                height: 36,
+                width: 29,
+                decoration: BoxDecoration(
+                    color: Color(0xff897CFF),
+                    borderRadius: BorderRadius.circular(10)),
+              ),
+              Text(
+                '5',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'SF Pro Display',
+                    fontWeight: FontWeight.w900),
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: GestureDetector(
+                  onTap: counter.increment,
+                  child: Icon(color: Colors.white, Icons.add),
+                ),
+                height: 36,
+                width: 29,
+                decoration: BoxDecoration(
+                    color: Color(0xff897CFF),
+                    borderRadius: BorderRadius.circular(10)),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(width: 10),
+        Image.asset(
+          'assets/icons/people.png',
+          width: 24,
+          height: 24,
+          fit: BoxFit.cover,
+        ),
+        SizedBox(width: 5),
+        Text('5 people',
+            style: TextStyle(
+            fontSize: 16,
+            fontFamily: 'SF Pro Display',
+            fontWeight: FontWeight.w500),
+        ),
+      ],
+    );
   }
 }
