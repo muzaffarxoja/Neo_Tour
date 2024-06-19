@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:neo_tour/consts.dart';
+
+import '../../main.dart';
 
 
 class OnboardingScreen extends StatelessWidget {
@@ -17,11 +20,13 @@ class OnboardingScreen extends StatelessWidget {
              child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                "assets/images/img_rectangle_19.png",
-                height: 480,
-                width: double.maxFinite,
-                fit: BoxFit.cover,
+              Expanded(
+                child: Image.asset(
+                  "assets/images/img_rectangle_19.png",
+                  height: 480,
+                  width: double.maxFinite,
+                  fit: BoxFit.cover,
+                ),
               ),
               SizedBox(height: 16),
               Padding(
@@ -77,7 +82,9 @@ class OnboardingScreen extends StatelessWidget {
                       bottom: 16,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    context.go(place_screen);
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,

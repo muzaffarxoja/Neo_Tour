@@ -69,7 +69,7 @@ class BookingModalSheet extends StatelessWidget {
 
             Consumer<MyPhoneNumber>(
               builder: (context, myPhoneNumber, child) {
-                return Text(myPhoneNumber.phoneNumber.toString());
+                return Text(myPhoneNumber.fullNumberPr.phoneNumber.toString());
               },
             ),
 
@@ -107,7 +107,7 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
   final TextEditingController controller = TextEditingController();
   String initialCountry = 'KG'; // Initial selection
   PhoneNumber intNumber = PhoneNumber(isoCode: 'KG');
-  PhoneNumber fullNumber = PhoneNumber();
+  //PhoneNumber fullNumber = PhoneNumber();
 
 
   @override
@@ -123,8 +123,8 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
             padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
             child: InternationalPhoneNumberInput(
               onInputChanged: (PhoneNumber number) {
-                fullNumber = number;
-                context.read<MyPhoneNumber>().phoneNumber = number;
+                //fullNumber = number;
+                context.read<MyPhoneNumber>().fullNumberPr = number;
                 print(number.phoneNumber); // Print full phone number to console
               },
               selectorConfig: SelectorConfig(
@@ -151,7 +151,7 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
         ElevatedButton(
           onPressed: () {
             // Perform validation or other actions here
-            print('Phone number: ${fullNumber.phoneNumber}'); // Print full phone number to console
+            //print('Phone number: ${fullNumber.phoneNumber}'); // Print full phone number to console
           },
           child: Text('Submit'),
         ),

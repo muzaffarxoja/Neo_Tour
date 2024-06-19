@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:neo_tour/ui/widgets/booking_modal_sheet.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../main.dart';
 
 class PlaceScreen extends StatelessWidget {
   const PlaceScreen({super.key});
@@ -36,9 +40,8 @@ class PlaceScreen extends StatelessWidget {
                     child: IconButton(
                       padding: EdgeInsets.zero, // Remove default padding
                       iconSize: 24, // Adjust the icon size
-                      onPressed: () {
-                        //code to execute when this button is pressed
-                      },
+                      onPressed: () => context.pop(),
+                      //onPressed: () => context.go(onboarding_screen),
                       icon: Image.asset('assets/icons/back_button.png'),
                     ),
                   ),
@@ -357,7 +360,7 @@ class PlaceScreen extends StatelessWidget {
             vertical: 14,
           ),
         ),
-        onPressed: () {},
+        onPressed: () => BookingModalSheet().show_booking_modal_sheet(context),
         child: const Text(
           "Book Now",
           style: TextStyle(

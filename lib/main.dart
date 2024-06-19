@@ -7,6 +7,32 @@ import 'package:neo_tour/ui/screens/place_screen.dart';
 import 'package:neo_tour/ui/widgets/booking_modal_sheet.dart';
 import 'package:neo_tour/ui/widgets/phone_entering.dart';
 import 'package:neo_tour/provider/counter_and_number.dart';
+import 'package:go_router/go_router.dart';
+
+
+
+const String onboarding_screen = '/onboarding_screen';
+const String place_screen = '/place_screen';
+
+
+
+final _router = GoRouter(
+  initialLocation: onboarding_screen,
+  //initialLocation: filter,
+
+  routes: [
+    GoRoute(
+      path: onboarding_screen,
+      builder: (context, state) => OnboardingScreen(),
+    ),
+    GoRoute(
+      path: place_screen,
+      builder: (context, state) =>PlaceScreen(),
+    ),
+    ],
+);
+
+
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +50,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
             create: (context) => MyPhoneNumber()),
         ],
-    child:  MaterialApp(
+    child:  MaterialApp.router(
+      routerConfig: _router,
       title: 'Flutter Demo',
       theme: ThemeData(
         scaffoldBackgroundColor: AppColorSchemes.lightColorScheme.background,
@@ -38,9 +65,9 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.system,
       //home: const OnboardingScreen(),
-      // home: const PlaceScreen(),
+      // home:  PlaceScreen(),
       // home: PhoneEntering(),
-      home: BookingModalSheet(),
+      //home: BookingModalSheet(),
     ),);
   }
 }
