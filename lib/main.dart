@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neo_tour/consts.dart';
 import 'package:neo_tour/provider/my_phone_number.dart';
+import 'package:neo_tour/ui/screens/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:neo_tour/ui/screens/onboarding_screen.dart';
 import 'package:neo_tour/ui/screens/place_screen.dart';
@@ -13,6 +14,7 @@ import 'package:go_router/go_router.dart';
 
 const String onboarding_screen = '/onboarding_screen';
 const String place_screen = '/place_screen';
+const String main_screen = '/main_screen';
 
 
 
@@ -28,6 +30,11 @@ final _router = GoRouter(
     GoRoute(
       path: place_screen,
       builder: (context, state) =>PlaceScreen(),
+    ),
+
+    GoRoute(
+      path: main_screen,
+      builder: (context, state) => MainScreen(),
     ),
     ],
 );

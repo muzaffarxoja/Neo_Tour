@@ -83,7 +83,7 @@ class OnboardingScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    context.go(place_screen);
+                    context.go(main_screen);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
