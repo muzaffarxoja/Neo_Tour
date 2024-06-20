@@ -18,8 +18,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   ];
   @override
   Widget build(BuildContext context) {
-    TabController _tabController =
-    TabController(length: 5, vsync: this);
+    TabController _tabController = TabController(length: 5, vsync: this);
 
     return SafeArea(
       child: Scaffold(
@@ -60,43 +59,58 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             //   height: 30,
             // ),
             Container(
-      
-              child: Align(
-                //alignment: Alignment.bottomLeft,
-                child: TabBar(
+              child: TabBar(
                   tabAlignment: TabAlignment.start,
-                  labelPadding: EdgeInsets.only(left: 20,right: 0),
+                  labelPadding: EdgeInsets.only(left: 20, right: 0),
                   isScrollable: true,
-                    controller: _tabController,
-                    tabs: [
-                  Tab(
-                      text:'Popular'
-                  ),
-                  Tab(
-                      text:'Featured'
-                  ),
-                  Tab(
-                      text:'Most viited'
-                  ),
-                  Tab(
-                      text:'Evrope'
-                  ),
-                  Tab(
-                      text:'Asia'
-                  ),
-                ]),
-              ),
+                  indicator:
+                      CircleTabIndicator(color: Color(0xff6A62B7), radius: 5),
+                  controller: _tabController,
+                  tabs: [
+                    Tab(text: 'Popular'),
+                    Tab(text: 'Featured'),
+                    Tab(text: 'Most viited'),
+                    Tab(text: 'Evrope'),
+                    Tab(text: 'Asia'),
+                  ]),
             ),
             Container(
               width: double.maxFinite,
               height: 250,
-              child: TabBarView(
-      
-                  controller: _tabController,
-                  children: [
-                Container(),
-                Container(),
-                Container(),
+              child: TabBarView(controller: _tabController, children: [
+                Scrollbar(
+                  thickness: 8.0,
+                  //trackVisibility: true,
+                  thumbVisibility: true,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      Image.asset('assets/images/img_rectangle_3.png'),
+                      Image.asset('assets/images/img_rectangle_3.png'),
+                      Image.asset('assets/images/img_rectangle_3.png'),
+                      Image.asset('assets/images/img_rectangle_3.png'),
+                    ],
+                  ),
+                ),
+                ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 300,
+                      height: 150, 
+                      margin: EdgeInsets.all(8.0), // Add some margin for better spacing
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                            'assets/images/img_rectangle_3.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                Text('data'),
                 Container(),
                 Container(),
               ]),
