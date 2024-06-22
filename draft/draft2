@@ -1,0 +1,20 @@
+ListView.builder(
+           itemCount: Fruitdata.length,
+          itemBuilder: (context,index){
+             return Card(
+               child: ListTile(
+                 title: Text(Fruitdata[index].name),
+                 leading: SizedBox(
+                   width: 50,
+                   height: 50,
+                   child: Image.network(Fruitdata[index].ImageUrl),
+                 ),
+                 onTap: (){
+                   Navigator.of(context).push(MaterialPageRoute(builder: (context)=>FruitDetail(fruitDataModel: Fruitdata[index],)));
+                 },
+               ),
+             );
+          }
+      )
+
+

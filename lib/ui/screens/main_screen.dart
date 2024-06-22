@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:neo_tour/big_app_text.dart';
+import 'package:neo_tour/data/repository/places_repository.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -16,6 +17,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     "mountain8.jpeg",
     "mountain9.jpeg",
   ];
+
+
+
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 5, vsync: this);
@@ -78,19 +82,14 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               width: double.maxFinite,
               height: 250,
               child: TabBarView(controller: _tabController, children: [
-                Scrollbar(
-                  thickness: 8.0,
-                  //trackVisibility: true,
-                  thumbVisibility: true,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      Image.asset('assets/images/img_rectangle_3.png'),
-                      Image.asset('assets/images/img_rectangle_3.png'),
-                      Image.asset('assets/images/img_rectangle_3.png'),
-                      Image.asset('assets/images/img_rectangle_3.png'),
-                    ],
-                  ),
+                ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Image.asset('assets/images/img_rectangle_3.png'),
+                    Image.asset('assets/images/img_rectangle_3.png'),
+                    Image.asset('assets/images/img_rectangle_3.png'),
+                    Image.asset('assets/images/img_rectangle_3.png'),
+                  ],
                 ),
                 ListView.builder(
                   scrollDirection: Axis.horizontal,

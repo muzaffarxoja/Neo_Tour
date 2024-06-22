@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:neo_tour/consts.dart';
 
+import '../../data/repository/places_repository.dart';
 import '../../main.dart';
-
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key})
       : super(
-    key: key,
-  );
+          key: key,
+        );
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: Container(
-          width:double.infinity,
-             child: Column(
+        body: Container(
+          width: double.infinity,
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
@@ -66,7 +66,8 @@ class OnboardingScreen extends StatelessWidget {
                 margin: EdgeInsets.only(left: 16),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor, //Color(0XFF6A62B6),
+                    backgroundColor:
+                        Theme.of(context).primaryColor, //Color(0XFF6A62B6),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
                         24,
@@ -84,6 +85,7 @@ class OnboardingScreen extends StatelessWidget {
                   ),
                   onPressed: () {
                     context.go(main_screen);
+                    PlacesRepository().getPlaceList();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -92,7 +94,7 @@ class OnboardingScreen extends StatelessWidget {
                       Text(
                         "Let’s Go!",
                         style: TextStyle(
-                          color: AppColorSchemes.lightColorScheme.onPrimary ,
+                          color: AppColorSchemes.lightColorScheme.onPrimary,
                           fontSize: 16,
                           //fontFamily: 'SF Pro Display',
 
