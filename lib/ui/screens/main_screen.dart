@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:neo_tour/big_app_text.dart';
 import 'package:neo_tour/data/repository/places_repository.dart';
+import 'package:neo_tour/models/place.dart';
+
+import '../../main.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -12,13 +16,44 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
-  List images = [
-    "mountain4.jpeg",
-    "mountain8.jpeg",
-    "mountain9.jpeg",
-  ];
+  List<Place> _places = [];
+  bool _isLoading = true;
+  List<Place> _popular = [];
+  List<Place> _featured = [];
+  List<Place> _most_visited = [];
+  List<Place> _europe = [];
+  List<Place> _asia = [];
 
+  @override
+  void initState() {
+    super.initState();
+    _loadPlaces();
+  }
 
+  void _loadPlaces() async {
+    List<Place> places = await PlacesRepository().getPlaceList();
+    setState(() {
+      _places = places;
+      _isLoading = false;
+
+      //Initialize places for each section
+      List<Place> popular =
+          List<Place>.generate(4, (int index) => _places[index]);
+      _popular = popular;
+      List<Place> featured =
+          List<Place>.generate(5, (int index) => _places[index + 4]);
+      _featured = featured;
+      List<Place> most_visited =
+          List<Place>.generate(1, (int index) => _places[index + 9]);
+      _most_visited = most_visited;
+      List<Place> asia =
+          List<Place>.generate(1, (int index) => _places[index + 10]);
+      _asia = asia;
+      List<Place> europe =
+          List<Place>.generate(1, (int index) => _places[index + 11]);
+      _europe = europe;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,29 +65,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Container(
-            //   padding: const EdgeInsets.only(
-            //     left: 20,
-            //     top: 70,
-            //   ),
-            //   child: Row(
-            //     children: [
-            //       Icon(Icons.menu, size: 30, color: Colors.black54),
-            //       Expanded(child: Container()),
-            //       Container(
-            //         width: 30,
-            //         height: 30,
-            //         decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(8),
-            //           color: Colors.grey[500],
-            //         ),
-            //       ),
-            //       SizedBox(
-            //         width: 20,
-            //       )
-            //     ],
-            //   ),
-            // ),
             const SizedBox(
               height: 20,
             ),
@@ -74,7 +86,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                     Tab(text: 'Popular'),
                     Tab(text: 'Featured'),
                     Tab(text: 'Most viited'),
-                    Tab(text: 'Evrope'),
+                    Tab(text: 'Europe'),
                     Tab(text: 'Asia'),
                   ]),
             ),
@@ -82,36 +94,11 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               width: double.maxFinite,
               height: 250,
               child: TabBarView(controller: _tabController, children: [
-                ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Image.asset('assets/images/img_rectangle_3.png'),
-                    Image.asset('assets/images/img_rectangle_3.png'),
-                    Image.asset('assets/images/img_rectangle_3.png'),
-                    Image.asset('assets/images/img_rectangle_3.png'),
-                  ],
-                ),
-                ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      width: 300,
-                      height: 150, 
-                      margin: EdgeInsets.all(8.0), // Add some margin for better spacing
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(
-                            'assets/images/img_rectangle_3.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                Text('data'),
-                Container(),
-                Container(),
+                _buildDynamicImageListView(_popular, _isLoading),
+                _buildDynamicImageListView(_featured, _isLoading),
+                _buildDynamicImageListView(_most_visited, _isLoading),
+                _buildDynamicImageListView(_europe, _isLoading),
+                _buildDynamicImageListView(_asia, _isLoading),
               ]),
             ),
             const SizedBox(
@@ -120,11 +107,47 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             Container(
                 padding: const EdgeInsets.only(left: 10),
                 child: BigAppText(text: "Recommended", size: 20)),
+
           ],
         ),
       ),
     );
   }
+}
+
+Widget _buildDynamicImageListView(List<Place> section_places, bool loading) {
+  if (loading) {
+    return const Center(child: CircularProgressIndicator());
+  }
+
+  if (section_places.isEmpty) {
+    return const Center(child: Text('No places available'));
+  }
+
+  return ListView.builder(
+    scrollDirection: Axis.horizontal,
+    itemCount: section_places.length,
+    itemBuilder: (context, index) {
+      Place place = section_places[index];
+      return Container(
+        width: 300,
+        height: 150,
+        margin: const EdgeInsets.all(8.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: GestureDetector(
+            child: Image.network(
+              place.image, // Assuming Place has an imageUrl property
+              fit: BoxFit.cover,
+            ),
+            onTap: () => context.push(
+              place_screen, extra: place
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class CircleTabIndicator extends Decoration {
@@ -154,3 +177,75 @@ class _CirclePainter extends BoxPainter {
     canvas.drawCircle(circleOffset, radius, _paint);
   }
 }
+
+// Container(
+//   padding: const EdgeInsets.only(
+//     left: 20,
+//     top: 70,
+//   ),
+//   child: Row(
+//     children: [
+//       Icon(Icons.menu, size: 30, color: Colors.black54),
+//       Expanded(child: Container()),
+//       Container(
+//         width: 30,
+//         height: 30,
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(8),
+//           color: Colors.grey[500],
+//         ),
+//       ),
+//       SizedBox(
+//         width: 20,
+//       )
+//     ],
+//   ),
+// ),
+
+// ListView(
+//   scrollDirection: Axis.horizontal,
+//   children: [
+//     Image.asset('assets/images/img_rectangle_3.png'),
+//     Image.asset('assets/images/img_rectangle_3.png'),
+//     Image.asset('assets/images/img_rectangle_3.png'),
+//     Image.asset('assets/images/img_rectangle_3.png'),
+//   ],
+// ),
+// ListView.builder(
+//   scrollDirection: Axis.horizontal,
+//   itemCount: 5,
+//   itemBuilder: (context, index) {
+//     return Container(
+//       width: 300,
+//       height: 150,
+//       margin: EdgeInsets.all(8.0), // Add some margin for better spacing
+//       child: ClipRRect(
+//         borderRadius: BorderRadius.circular(20),
+//         child: Image.asset(
+//             'assets/images/img_rectangle_3.png',
+//           fit: BoxFit.cover,
+//         ),
+//       ),
+//     );
+//   },
+// ),
+// ListView.builder(
+//   scrollDirection: Axis.horizontal,
+//   itemCount: 5,
+//   itemBuilder: (context, index) {
+//     return Container(
+//       width: 300,
+//       height: 150,
+//       margin: EdgeInsets.all(8.0), // Add some margin for better spacing
+//       child: ClipRRect(
+//         borderRadius: BorderRadius.circular(20),
+//         child: Image.asset(
+//           'assets/images/img_rectangle_3.png',
+//           fit: BoxFit.cover,
+//         ),
+//       ),
+//     );
+//   },
+// ),
+// Container(),
+// Container(),

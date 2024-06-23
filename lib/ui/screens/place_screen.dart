@@ -4,9 +4,13 @@ import 'package:neo_tour/ui/widgets/booking_modal_sheet.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../main.dart';
+import '../../models/place.dart';
 
 class PlaceScreen extends StatelessWidget {
-  const PlaceScreen({super.key});
+  final Place singlePlace;
+
+
+  PlaceScreen({super.key, required this.singlePlace});
 
   @override
   Widget build(BuildContext context) {

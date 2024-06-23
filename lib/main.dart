@@ -5,10 +5,12 @@ import 'package:neo_tour/ui/screens/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:neo_tour/ui/screens/onboarding_screen.dart';
 import 'package:neo_tour/ui/screens/place_screen.dart';
-import 'package:neo_tour/ui/widgets/booking_modal_sheet.dart';
-import 'package:neo_tour/ui/widgets/phone_entering.dart';
+// import 'package:neo_tour/ui/widgets/booking_modal_sheet.dart';
+// import 'package:neo_tour/ui/widgets/phone_entering.dart';
 import 'package:neo_tour/provider/counter_and_number.dart';
 import 'package:go_router/go_router.dart';
+
+import 'models/place.dart';
 
 
 
@@ -29,7 +31,7 @@ final _router = GoRouter(
     ),
     GoRoute(
       path: place_screen,
-      builder: (context, state) =>PlaceScreen(),
+      builder: (context, state) =>PlaceScreen(singlePlace: state.extra as Place),
     ),
 
     GoRoute(
