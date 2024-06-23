@@ -138,11 +138,7 @@ class BookingModalSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Placeholder();
-    // Scaffold(
-    // appBar: AppBar(
-    //       ),
-    // body: Container(),
-    //    );
+
   }
 }
 
@@ -221,7 +217,11 @@ class CounterWidget extends StatelessWidget {
               Container(
                 alignment: Alignment.center,
                 child: GestureDetector(
-                  onTap: counter.decrement,
+                  onTap: () {
+                    if (counter.count > 0) {
+                      counter.decrement();
+                    }
+                  },
                   child: Icon(color: Colors.white, Icons.remove),
                 ),
                 height: 36,
@@ -231,7 +231,7 @@ class CounterWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)),
               ),
               Text(
-                '5',
+                counter.count.toString(),
                 style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'SF Pro Display',
@@ -240,7 +240,11 @@ class CounterWidget extends StatelessWidget {
               Container(
                 alignment: Alignment.center,
                 child: GestureDetector(
-                  onTap: counter.increment,
+                  onTap: () {
+                    if (counter.count < 5) {
+                      counter.increment();
+                    }
+                  },
                   child: Icon(color: Colors.white, Icons.add),
                 ),
                 height: 36,
@@ -260,7 +264,7 @@ class CounterWidget extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         SizedBox(width: 5),
-        Text('5 people',
+        Text('${counter.count.toString()} people',
             style: TextStyle(
             fontSize: 16,
             fontFamily: 'SF Pro Display',
