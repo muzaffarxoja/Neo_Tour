@@ -23,6 +23,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   List<Place> _most_visited = [];
   List<Place> _europe = [];
   List<Place> _asia = [];
+  List<Place> _recomended = [];
 
   @override
   void initState() {
@@ -52,6 +53,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       List<Place> europe =
           List<Place>.generate(1, (int index) => _places[index + 11]);
       _europe = europe;
+
+      List<Place> recomended =
+          List<Place>.generate(4, (int index) => _places[index + 5]);
+      _recomended = recomended;
     });
   }
 
@@ -108,6 +113,31 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 padding: const EdgeInsets.only(left: 10),
                 child: BigAppText(text: "Recommended", size: 20)),
 
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemCount: _recomended.length,
+                itemBuilder: (context, index) {
+                  Place place = _recomended[index];
+                  return Container(
+                    width: 150,
+                    height: 100,
+                    margin: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: GestureDetector(
+                        child: Image.network(
+                          place.image, // Assuming Place has an imageUrl property
+                          fit: BoxFit.cover,
+                        ),
+                        onTap: () => context.push(place_screen, extra: place),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -140,9 +170,7 @@ Widget _buildDynamicImageListView(List<Place> section_places, bool loading) {
               place.image, // Assuming Place has an imageUrl property
               fit: BoxFit.cover,
             ),
-            onTap: () => context.push(
-              place_screen, extra: place
-            ),
+            onTap: () => context.push(place_screen, extra: place),
           ),
         ),
       );
