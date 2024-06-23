@@ -23,15 +23,15 @@ class PlaceScreen extends StatelessWidget {
               top: 0,
               left: 0,
               right: 0,
-              child: Image.asset(
-                "assets/images/img_rectangle_31.png",
+              child: Image.network(
+                singlePlace.image,
                 height: 289,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
             ),
             Positioned.fill(
-              child: _buildMountFujiSection(context),
+              child: _buildMountFujiSection(context, singlePlace.name),
             ),
             Positioned(
               top: 20, // Adjust the top position to place the header correctly
@@ -69,7 +69,7 @@ class PlaceScreen extends StatelessWidget {
   }
 
   /// Section Widget
-  Widget _buildMountFujiSection(BuildContext context) {
+  Widget _buildMountFujiSection(BuildContext context,String name) {
     return SingleChildScrollView(
       padding: const EdgeInsets.only(
         top: 250,
@@ -90,8 +90,8 @@ class PlaceScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Mount Fuji",
+             Text(
+              name,
               style: TextStyle(
                 color: Color(0XFF141414),
                 fontSize: 24,

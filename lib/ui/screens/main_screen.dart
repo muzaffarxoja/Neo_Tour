@@ -122,7 +122,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   Place place = _recomended[index];
                   return Container(
                     width: 150,
-                    height: 100,
+                    height: 70,
                     margin: const EdgeInsets.all(8.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
@@ -160,8 +160,8 @@ Widget _buildDynamicImageListView(List<Place> section_places, bool loading) {
     itemBuilder: (context, index) {
       Place place = section_places[index];
       return Container(
-        width: 300,
-        height: 150,
+        width: 250,
+        height: 180,
         margin: const EdgeInsets.all(8.0),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
