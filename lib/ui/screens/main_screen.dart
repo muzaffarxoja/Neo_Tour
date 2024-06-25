@@ -33,6 +33,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   void _loadPlaces() async {
     List<Place> places = await PlacesRepository().getPlaceList();
+
     List<Place> popular = await PlacesRepository().getPlaceListByCategory('POPULAR');
     List<Place> recomended = await PlacesRepository().getPlaceListByCategory('RECOMMENDED');
     List<Place> most_visited = await PlacesRepository().getPlaceListByCategory('MOST_VISITED');
@@ -43,13 +44,14 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
 
     setState(() {
+      _places = places;
+
       _popular =popular;
       _recomended = recomended;
       _featured = featured;
       _most_visited = most_visited;
       _europe=europe;
       _asia=asia;
-      _places = places;
       _isLoading = false;
 
 
