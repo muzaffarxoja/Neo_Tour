@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:neo_tour/provider/my_phone_number.dart';
 import 'package:provider/provider.dart';
@@ -81,11 +82,11 @@ class BookingModalSheet extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            Consumer<MyPhoneNumber>(
-              builder: (context, myPhoneNumber, child) {
-                return Text(myPhoneNumber.fullNumberPr.phoneNumber.toString());
-              },
-            ),
+            // Consumer<MyPhoneNumber>(
+            //   builder: (context, myPhoneNumber, child) {
+            //     return Text(myPhoneNumber.fullNumberPr.phoneNumber.toString());
+            //   },
+            // ),
             const SizedBox(height: 12),
             Text(
               'Number of people',
@@ -117,7 +118,9 @@ class BookingModalSheet extends StatelessWidget {
                     vertical: 14,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: (){
+                  Navigator.of(ctx).pop();
+                },
                 child: const Text(
                   "Submit",
                   style: TextStyle(
