@@ -24,6 +24,23 @@ class PlacesRepository {
     }
   }
 
+  Future<List<Place>> getPlaceListByCategory(String category) async {
+    try {
+      final response = await dio
+          .get("http://neotour-production-392c.up.railway.app/api/tours/by-category/$category");
+
+      List<dynamic> data =
+          response.data; // Dio already decodes the JSON for you
+      List<Place> placeList = data.map((json) => Place.fromJson(json)).toList();
+
+      debugPrint(response.data.toString());
+      return placeList;
+    } catch (e) {
+      print('Request failed with error: $e');
+      return [];
+    }
+  }
+
   Future<List<Tour>> getPlaceDetail() async {
     try {
       final response = await dio
@@ -40,4 +57,7 @@ class PlacesRepository {
       return [];
     }
   }
+
+
+
 }
