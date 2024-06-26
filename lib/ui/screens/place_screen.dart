@@ -1,16 +1,37 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:neo_tour/data/repository/places_repository.dart';
+import 'package:neo_tour/models/place_detail.dart';
 import 'package:neo_tour/ui/widgets/booking_modal_sheet.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../main.dart';
 import '../../models/place.dart';
 
-class PlaceScreen extends StatelessWidget {
+class PlaceScreen extends StatefulWidget {
   final Place singlePlace;
 
+  const PlaceScreen({super.key, required this.singlePlace});
 
-  PlaceScreen({super.key, required this.singlePlace});
+  @override
+  State<PlaceScreen> createState() => _PlaceScreenState();
+}
+
+class _PlaceScreenState extends State<PlaceScreen> {
+  late final PlaceDetail placeDetail;
+
+  @override
+  void initState() {
+    _init();
+    super.initState();
+  }
+
+  Future<void> _init() async {
+    placeDetail = await PlacesRepository()
+        .getPlaceDetails(widget.singlePlace.id.toString());
+    setState(() {});
+    print(placeDetail);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +45,14 @@ class PlaceScreen extends StatelessWidget {
               left: 0,
               right: 0,
               child: Image.network(
-                singlePlace.image,
+                widget.singlePlace.image,
                 height: 289,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
             ),
             Positioned.fill(
-              child: _buildMountFujiSection(context, singlePlace.name),
+              child: _buildMountFujiSection(context, widget.singlePlace.name),
             ),
             Positioned(
               top: 20, // Adjust the top position to place the header correctly
@@ -69,7 +90,7 @@ class PlaceScreen extends StatelessWidget {
   }
 
   /// Section Widget
-  Widget _buildMountFujiSection(BuildContext context,String name) {
+  Widget _buildMountFujiSection(BuildContext context, String name) {
     return SingleChildScrollView(
       padding: const EdgeInsets.only(
         top: 250,
@@ -90,7 +111,7 @@ class PlaceScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Text(
+            Text(
               name,
               style: TextStyle(
                 color: Color(0XFF141414),
@@ -364,7 +385,7 @@ class PlaceScreen extends StatelessWidget {
             vertical: 14,
           ),
         ),
-        onPressed: () => BookingModalSheet().show_booking_modal_sheet(context),
+        onPressed: () => const BookingModalSheet().show_booking_modal_sheet(context),
         child: const Text(
           "Book Now",
           style: TextStyle(

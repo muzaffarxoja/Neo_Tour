@@ -27,7 +27,7 @@ final _router = GoRouter(
   routes: [
     GoRoute(
       path: onboarding_screen,
-      builder: (context, state) => OnboardingScreen(),
+      builder: (context, state) => const OnboardingScreen(),
     ),
     GoRoute(
       path: place_screen,
@@ -36,7 +36,7 @@ final _router = GoRouter(
 
     GoRoute(
       path: main_screen,
-      builder: (context, state) => MainScreen(),
+      builder: (context, state) => const MainScreen(),
     ),
     ],
 );
