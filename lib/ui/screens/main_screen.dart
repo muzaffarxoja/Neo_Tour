@@ -33,30 +33,28 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   void _loadPlaces() async {
     List<Place> places = await PlacesRepository().getPlaceList();
+
+    List<Place> popular = await PlacesRepository().getPlaceListByCategory('POPULAR');
+    List<Place> recomended = await PlacesRepository().getPlaceListByCategory('RECOMMENDED');
+    List<Place> most_visited = await PlacesRepository().getPlaceListByCategory('MOST_VISITED');
+    List<Place> europe = await PlacesRepository().getPlaceListByCategory('BY_CONTINENT?continent=EUROPE');
+    List<Place> asia = await PlacesRepository().getPlaceListByCategory('BY_CONTINENT?continent=ASIA');
+    List<Place> featured = await PlacesRepository().getPlaceListByCategory('FEATURED');
+
+
+
     setState(() {
       _places = places;
+
+      _popular =popular;
+      _recomended = recomended;
+      _featured = featured;
+      _most_visited = most_visited;
+      _europe=europe;
+      _asia=asia;
       _isLoading = false;
 
-      //Initialize places for each section
-      List<Place> popular =
-          List<Place>.generate(4, (int index) => _places[index]);
-      _popular = popular;
-      List<Place> featured =
-          List<Place>.generate(5, (int index) => _places[index + 4]);
-      _featured = featured;
-      List<Place> most_visited =
-          List<Place>.generate(1, (int index) => _places[index + 9]);
-      _most_visited = most_visited;
-      List<Place> asia =
-          List<Place>.generate(1, (int index) => _places[index + 10]);
-      _asia = asia;
-      List<Place> europe =
-          List<Place>.generate(1, (int index) => _places[index + 11]);
-      _europe = europe;
 
-      List<Place> recomended =
-          List<Place>.generate(4, (int index) => _places[index + 5]);
-      _recomended = recomended;
     });
   }
 
