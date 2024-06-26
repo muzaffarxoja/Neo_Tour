@@ -28,7 +28,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
 
   Future<void> _init() async {
     placeDetail = await PlacesRepository()
-        .getPlaceDetails(widget.singlePlace.id.toString());
+        .getPlaceDetail(widget.singlePlace.id.toString());
     setState(() {});
     print(placeDetail);
   }

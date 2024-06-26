@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:neo_tour/models/place.dart';
+import 'package:neo_tour/models/place_detail.dart';
 
 import '../../models/tour.dart';
 
@@ -41,20 +42,20 @@ class PlacesRepository {
     }
   }
 
-  Future<List<Tour>> getPlaceDetail() async {
+  Future<PlaceDetail> getPlaceDetail(String id) async {
     try {
       final response = await dio
-          .get("https://neotour-production-392c.up.railway.app/api/tours");
+          .get("https://neotour-production-392c.up.railway.app/api/tours/$id");
 
-      List<dynamic> data =
+      final data =
           response.data; // Dio already decodes the JSON for you
-      List<Tour> placeDetail = data.map((json) => Tour.fromJson(json)).toList();
+      final placeDetail = data.map((json) => PlaceDetail.fromMap(json));
 
       debugPrint(response.data.toString());
       return placeDetail;
     } catch (e) {
       print('Request failed with error: $e');
-      return [];
+      rethrow;
     }
   }
 

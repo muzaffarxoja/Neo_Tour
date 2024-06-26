@@ -96,7 +96,7 @@ class PlaceDetail {
       location: map['location'] as String,
       country: map['country'] as String,
       images: (map['images'] as List).map((e) => e as String).toList(),
-      reviews: (map['reviews'] as List).map((e) => Review.fromMap(e)).toList(),
+      reviews: (map['reviews'] as List).map((e) => Review.fromJson(e)).toList(),
     );
   }
 
