@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:neo_tour/data/repository/places_repository.dart';
 import 'package:neo_tour/models/place_detail.dart';
+import 'package:neo_tour/models/tour.dart';
 import 'package:neo_tour/ui/widgets/booking_modal_sheet.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,6 +12,7 @@ import '../../models/place.dart';
 class PlaceScreen extends StatefulWidget {
   final Place singlePlace;
 
+
   const PlaceScreen({super.key, required this.singlePlace});
 
   @override
@@ -18,20 +20,44 @@ class PlaceScreen extends StatefulWidget {
 }
 
 class _PlaceScreenState extends State<PlaceScreen> {
-  late final PlaceDetail placeDetail;
+
+  late final Tour _detail;
+  bool _isLoading = true;
+
 
   @override
   void initState() {
-    _init();
     super.initState();
+    _loadTourDetail(widget.singlePlace.id.toString());
   }
 
-  Future<void> _init() async {
-    placeDetail = await PlacesRepository()
-        .getPlaceDetail(widget.singlePlace.id.toString());
-    setState(() {});
-    print(placeDetail);
+  void _loadTourDetail(String id) async {
+    Tour detail = await PlacesRepository().getPlaceDetail(id);
+
+    setState(() {
+      _detail = detail;
+      _isLoading = false;
+
+
+    });
   }
+
+
+
+  // late final PlaceDetail placeDetail;
+  //
+  // @override
+  // void initState() {
+  //   _init();
+  //   super.initState();
+  // }
+  //
+  // Future<void> _init() async {
+  //   placeDetail = await PlacesRepository()
+  //       .getPlaceDetail(widget.singlePlace.id.toString());
+  //   setState(() {});
+  //   print(placeDetail);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +78,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
               ),
             ),
             Positioned.fill(
-              child: _buildMountFujiSection(context, widget.singlePlace.name),
+              child: _buildMountFujiSection(context, widget.singlePlace.name,_detail.location,_isLoading),
             ),
             Positioned(
               top: 20, // Adjust the top position to place the header correctly
@@ -90,7 +116,12 @@ class _PlaceScreenState extends State<PlaceScreen> {
   }
 
   /// Section Widget
-  Widget _buildMountFujiSection(BuildContext context, String name) {
+  Widget _buildMountFujiSection(BuildContext context, String name, String location,bool loading) {
+    if (loading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+
     return SingleChildScrollView(
       padding: const EdgeInsets.only(
         top: 250,

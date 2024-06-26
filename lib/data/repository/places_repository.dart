@@ -34,7 +34,7 @@ class PlacesRepository {
           response.data; // Dio already decodes the JSON for you
       List<Place> placeList = data.map((json) => Place.fromJson(json)).toList();
 
-      debugPrint(response.data.toString());
+      //debugPrint(response.data.toString());
       return placeList;
     } catch (e) {
       print('Request failed with error: $e');
@@ -42,14 +42,19 @@ class PlacesRepository {
     }
   }
 
-  Future<PlaceDetail> getPlaceDetail(String id) async {
+  Future<Tour> getPlaceDetail(String id) async {
     try {
       final response = await dio
           .get("https://neotour-production-392c.up.railway.app/api/tours/$id");
 
-      final data =
+      dynamic data =
           response.data; // Dio already decodes the JSON for you
-      final placeDetail = data.map((json) => PlaceDetail.fromMap(json));
+      Tour placeDetail =Tour.fromJson(data);
+
+
+      // final data =
+      //     response.data; // Dio already decodes the JSON for you
+      // final placeDetail = data.map((json) => PlaceDetail.fromMap(json));
 
       debugPrint(response.data.toString());
       return placeDetail;

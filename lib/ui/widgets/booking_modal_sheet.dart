@@ -9,11 +9,11 @@ class BookingModalSheet extends StatelessWidget {
   const BookingModalSheet({Key? key}) : super(key: key);
 
   // This function is triggered when the floating buttion is pressed
-  void show_booking_modal_sheet(BuildContext context) {
+  void show_booking_modal_sheet(BuildContext contex) {
     showModalBottomSheet(
       isScrollControlled: true,
       elevation: 5,
-      context: context,
+      context: contex,
       builder: (ctx) => Padding(
         padding: EdgeInsets.only(
             top: 15,
@@ -24,7 +24,7 @@ class BookingModalSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Info',
               style: TextStyle(
                   color: Color(0XFF141414),
@@ -33,7 +33,7 @@ class BookingModalSheet extends StatelessWidget {
                   fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 10),
-            const Text(
+            Text(
               'To submit an application for a tour reservation, you need to fill in your information and select the number of people for the reservation',
               style: TextStyle(
                   color: Color(0XFF141414),
@@ -42,7 +42,7 @@ class BookingModalSheet extends StatelessWidget {
                   fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'Phone number',
               style: TextStyle(
                   color: Color(0XFF888888),
@@ -53,7 +53,7 @@ class BookingModalSheet extends StatelessWidget {
             const SizedBox(height: 3),
             PhoneNumberInputWidget(),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'Commentaries to trip',
               style: TextStyle(
                   color: Color(0XFF888888),
@@ -63,19 +63,19 @@ class BookingModalSheet extends StatelessWidget {
             ),
             const SizedBox(height: 3),
             Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: const Color(0xff6A62B7)),
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              child: const TextField(
+              child: TextField(
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
+                    contentPadding: const EdgeInsets.symmetric(
                         vertical: 10.0, horizontal: 20.0),
                     border: InputBorder.none,
                     hintStyle:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                     hintText: 'Write your wishes to trip...'),
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(color: Color(0xff6A62B7)),
+                borderRadius: BorderRadius.circular(30.0),
               ),
             ),
             const SizedBox(
@@ -87,7 +87,7 @@ class BookingModalSheet extends StatelessWidget {
               },
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'Number of people',
               style: TextStyle(
                   color: Color(0XFF888888),
@@ -95,8 +95,8 @@ class BookingModalSheet extends StatelessWidget {
                   //fontFamily: 'SF Pro Display',
                   fontWeight: FontWeight.w400),
             ),
-            const CounterWidget(),
-            const SizedBox(height: 50,),
+            CounterWidget(),
+            SizedBox(height: 50,),
             SizedBox(
               width: double.maxFinite,
               height: 50,
@@ -117,9 +117,7 @@ class BookingModalSheet extends StatelessWidget {
                     vertical: 14,
                   ),
                 ),
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                },
+                onPressed: () {},
                 child: const Text(
                   "Submit",
                   style: TextStyle(
@@ -139,7 +137,7 @@ class BookingModalSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Placeholder();
 
   }
 }
@@ -161,7 +159,7 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
       children: <Widget>[
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xff6A62B7)),
+            border: Border.all(color: Color(0xff6A62B7)),
             borderRadius: BorderRadius.circular(30.0), // Circular border
           ),
           child: Padding(
@@ -173,21 +171,21 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
                 context.read<MyPhoneNumber>().fullNumberPr = number;
                 print(number.phoneNumber); // Print full phone number to console
               },
-              selectorConfig: const SelectorConfig(
+              selectorConfig: SelectorConfig(
                 selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                 useEmoji: true,
               ),
               ignoreBlank: false,
               autoValidateMode: AutovalidateMode.disabled,
-              selectorTextStyle: const TextStyle(color: Colors.black),
+              selectorTextStyle: TextStyle(color: Colors.black),
               initialValue: intNumber,
               textFieldController: controller,
               formatInput: true,
-              keyboardType: const TextInputType.numberWithOptions(
+              keyboardType: TextInputType.numberWithOptions(
                 signed: true,
                 decimal: true,
               ),
-              inputDecoration: const InputDecoration(
+              inputDecoration: InputDecoration(
                 border: InputBorder.none,
               ),
             ),
@@ -211,63 +209,63 @@ class CounterWidget extends StatelessWidget {
           height: 36,
           width: 104,
           decoration: BoxDecoration(
-              color: const Color(0xffF3F3F3),
+              color: Color(0xffF3F3F3),
               borderRadius: BorderRadius.circular(10)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 alignment: Alignment.center,
-                height: 36,
-                width: 29,
-                decoration: BoxDecoration(
-                    color: const Color(0xff897CFF),
-                    borderRadius: BorderRadius.circular(10)),
                 child: GestureDetector(
                   onTap: () {
                     if (counter.count > 0) {
                       counter.decrement();
                     }
                   },
-                  child: const Icon(color: Colors.white, Icons.remove),
+                  child: Icon(color: Colors.white, Icons.remove),
                 ),
+                height: 36,
+                width: 29,
+                decoration: BoxDecoration(
+                    color: Color(0xff897CFF),
+                    borderRadius: BorderRadius.circular(10)),
               ),
               Text(
                 counter.count.toString(),
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'SF Pro Display',
                     fontWeight: FontWeight.w900),
               ),
               Container(
                 alignment: Alignment.center,
-                height: 36,
-                width: 29,
-                decoration: BoxDecoration(
-                    color: const Color(0xff897CFF),
-                    borderRadius: BorderRadius.circular(10)),
                 child: GestureDetector(
                   onTap: () {
                     if (counter.count < 5) {
                       counter.increment();
                     }
                   },
-                  child: const Icon(color: Colors.white, Icons.add),
+                  child: Icon(color: Colors.white, Icons.add),
                 ),
+                height: 36,
+                width: 29,
+                decoration: BoxDecoration(
+                    color: Color(0xff897CFF),
+                    borderRadius: BorderRadius.circular(10)),
               ),
             ],
           ),
         ),
-        const SizedBox(width: 10),
+        SizedBox(width: 10),
         Image.asset(
           'assets/icons/people.png',
           width: 24,
           height: 24,
           fit: BoxFit.cover,
         ),
-        const SizedBox(width: 5),
+        SizedBox(width: 5),
         Text('${counter.count.toString()} people',
-            style: const TextStyle(
+            style: TextStyle(
             fontSize: 16,
             fontFamily: 'SF Pro Display',
             fontWeight: FontWeight.w500),
