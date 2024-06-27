@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:neo_tour/data/repository/dummy_date.dart';
 import 'package:neo_tour/data/repository/places_repository.dart';
 import 'package:neo_tour/models/place_detail.dart';
 import 'package:neo_tour/models/tour.dart';
@@ -8,6 +9,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../main.dart';
 import '../../models/place.dart';
+import '../../models/review.dart';
 
 class PlaceScreen extends StatefulWidget {
   final Place singlePlace;
@@ -212,7 +214,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            _MyBuildViewSection(context),
+            _MyBuildViewSection(context, dummy_review),
 
             //_buildReviewSection(context),
             const SizedBox(height: 24),
@@ -225,61 +227,69 @@ class _PlaceScreenState extends State<PlaceScreen> {
     );
   }
 
-  /// Section Widget
-  Widget _buildStackBackSection(BuildContext context) {
-    return Stack(
-      children: [
-        Image.asset(
-          "assets/images/img_rectangle_31.png",
-          height: 289,
-          width: double.infinity,
-          fit: BoxFit.cover,
-        ),
-        Positioned(
-          top: 40, // Adjust the top position to place the header correctly
-          left: 15,
-          child: Row(
-            children: [
-              SizedBox(
-                height: 24, // Set the desired height
-                width: 24, // Set the desired width
-                child: IconButton(
-                  padding: EdgeInsets.zero, // Remove default padding
-                  iconSize: 24, // Adjust the icon size
-                  onPressed: () {
-                    //code to execute when this button is pressed
-                  },
-                  icon: Image.asset('assets/icons/back_button.png'),
-                ),
-              ),
-              const SizedBox(width: 5),
-              // Add some space between the icon and the text
-              const Text(
-                "Back",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  // /// Section Widget
+  // Widget _buildStackBackSection(BuildContext context) {
+  //   return Stack(
+  //     children: [
+  //       Image.asset(
+  //         "assets/images/img_rectangle_31.png",
+  //         height: 289,
+  //         width: double.infinity,
+  //         fit: BoxFit.cover,
+  //       ),
+  //       Positioned(
+  //         top: 40, // Adjust the top position to place the header correctly
+  //         left: 15,
+  //         child: Row(
+  //           children: [
+  //             SizedBox(
+  //               height: 24, // Set the desired height
+  //               width: 24, // Set the desired width
+  //               child: IconButton(
+  //                 padding: EdgeInsets.zero, // Remove default padding
+  //                 iconSize: 24, // Adjust the icon size
+  //                 onPressed: () {
+  //                   //code to execute when this button is pressed
+  //                 },
+  //                 icon: Image.asset('assets/icons/back_button.png'),
+  //               ),
+  //             ),
+  //             const SizedBox(width: 5),
+  //             // Add some space between the icon and the text
+  //             const Text(
+  //               "Back",
+  //               style: TextStyle(
+  //                 color: Colors.white,
+  //                 fontSize: 16,
+  //                 fontWeight: FontWeight.w400,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   /// Section Widget
-  Widget _MyBuildViewSection(BuildContext context) {
-    return Column(
-      children: [
-        _MyBuildTextReview(review: ''),
-        _MyBuildImageRewiew(img: ''),
-      ],
-    );
-  }
+  Widget _MyBuildViewSection(BuildContext context, List<Review> reviews ) {
+    if (reviews.isEmpty) {
+      return const Center(child: Text('No reviews available'));
+    }
 
-  Widget _MyBuildTextReview({required String review}) {
+    return Container(
+      height: 200,
+      child: ListView.builder(
+          itemCount: reviews.length,
+          itemBuilder: (context, index) {
+           return _MyBuildTextReview(reviews[index]);
+          }
+      ),
+    );
+
+    }
+
+  Widget _MyBuildTextReview(Review review) {
     return SizedBox(
       width: double.maxFinite,
       child: Column(
@@ -294,17 +304,17 @@ class _PlaceScreenState extends State<PlaceScreen> {
                     12,
                   ),
                   child: Image.asset(
-                    "assets/images/img_ellipse_62.png",
+                    review.imageUrl,
                     height: 24,
                     width: 24,
                   ),
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text(
-                      "Anonymous",
+                      review.username,
                       style: TextStyle(
                         color: Color(0XFF141414),
                         fontSize: 16,
@@ -318,8 +328,8 @@ class _PlaceScreenState extends State<PlaceScreen> {
             ),
           ),
           const SizedBox(height: 12),
-          const Text(
-            "That was such a nice place. The most beautiful place I’ve ever seen. My advice to everyone not to forget to take warm coat",
+          Text(
+            review.review,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -334,44 +344,44 @@ class _PlaceScreenState extends State<PlaceScreen> {
     );
   }
 
-  Widget _MyBuildImageRewiew({required String img}) {
+  Widget _MyBuildImageRewiew(Review review) {
     return SizedBox(
       width: double.maxFinite,
       child: Column(
         children: [
-          SizedBox(
-            width: double.maxFinite,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(
-                    12,
-                  ),
-                  child: Image.asset(
-                    "assets/images/img_ellipse_62.png",
-                    height: 24,
-                    width: 24,
-                  ),
-                ),
-                const Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 8),
-                    child: Text(
-                      "Anonymous",
-                      style: TextStyle(
-                        color: Color(0XFF141414),
-                        fontSize: 16,
-                        fontFamily: 'SF Pro Display',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
+          // SizedBox(
+          //   width: double.maxFinite,
+          //   child: Row(
+          //     mainAxisSize: MainAxisSize.max,
+          //     children: [
+          //       ClipRRect(
+          //         borderRadius: BorderRadius.circular(
+          //           12,
+          //         ),
+          //         child: Image.asset(
+          //           "assets/images/img_ellipse_62.png",
+          //           height: 24,
+          //           width: 24,
+          //         ),
+          //       ),
+          //       const Align(
+          //         alignment: Alignment.bottomCenter,
+          //         child: Padding(
+          //           padding: EdgeInsets.only(left: 8),
+          //           child: Text(
+          //             "Anonymous",
+          //             style: TextStyle(
+          //               color: Color(0XFF141414),
+          //               fontSize: 16,
+          //               fontFamily: 'SF Pro Display',
+          //               fontWeight: FontWeight.w500,
+          //             ),
+          //           ),
+          //         ),
+          //       )
+          //     ],
+          //   ),
+          // ),
           const SizedBox(height: 12),
           Align(
               alignment: Alignment.bottomRight,
