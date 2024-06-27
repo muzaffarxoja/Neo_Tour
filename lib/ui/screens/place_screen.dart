@@ -216,6 +216,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
             const SizedBox(height: 16),
             _MyBuildViewSection(context, dummy_review),
 
+
             //_buildReviewSection(context),
             const SizedBox(height: 24),
             _buildBookNowButton(context),
@@ -227,49 +228,6 @@ class _PlaceScreenState extends State<PlaceScreen> {
     );
   }
 
-  // /// Section Widget
-  // Widget _buildStackBackSection(BuildContext context) {
-  //   return Stack(
-  //     children: [
-  //       Image.asset(
-  //         "assets/images/img_rectangle_31.png",
-  //         height: 289,
-  //         width: double.infinity,
-  //         fit: BoxFit.cover,
-  //       ),
-  //       Positioned(
-  //         top: 40, // Adjust the top position to place the header correctly
-  //         left: 15,
-  //         child: Row(
-  //           children: [
-  //             SizedBox(
-  //               height: 24, // Set the desired height
-  //               width: 24, // Set the desired width
-  //               child: IconButton(
-  //                 padding: EdgeInsets.zero, // Remove default padding
-  //                 iconSize: 24, // Adjust the icon size
-  //                 onPressed: () {
-  //                   //code to execute when this button is pressed
-  //                 },
-  //                 icon: Image.asset('assets/icons/back_button.png'),
-  //               ),
-  //             ),
-  //             const SizedBox(width: 5),
-  //             // Add some space between the icon and the text
-  //             const Text(
-  //               "Back",
-  //               style: TextStyle(
-  //                 color: Colors.white,
-  //                 fontSize: 16,
-  //                 fontWeight: FontWeight.w400,
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   /// Section Widget
   Widget _MyBuildViewSection(BuildContext context, List<Review> reviews ) {
@@ -282,7 +240,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
       child: ListView.builder(
           itemCount: reviews.length,
           itemBuilder: (context, index) {
-           return _MyBuildTextReview(reviews[index]);
+           return  _MyBuildTextReview(reviews[index]);
           }
       ),
     );
