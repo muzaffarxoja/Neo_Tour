@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:neo_tour/data/repository/places_repository.dart';
 import 'package:neo_tour/models/place_detail.dart';
-import 'package:neo_tour/models/review.dart';
 import 'package:neo_tour/models/tour.dart';
 import 'package:neo_tour/ui/widgets/booking_modal_sheet.dart';
 import 'package:go_router/go_router.dart';
@@ -13,6 +12,7 @@ import '../../models/place.dart';
 class PlaceScreen extends StatefulWidget {
   final Place singlePlace;
 
+
   const PlaceScreen({super.key, required this.singlePlace});
 
   @override
@@ -20,8 +20,10 @@ class PlaceScreen extends StatefulWidget {
 }
 
 class _PlaceScreenState extends State<PlaceScreen> {
+
   late final Tour _detail;
   bool _isLoading = true;
+
 
   @override
   void initState() {
@@ -34,11 +36,13 @@ class _PlaceScreenState extends State<PlaceScreen> {
 
     setState(() {
       _detail = detail;
-
       _isLoading = false;
+
 
     });
   }
+
+
 
   // late final PlaceDetail placeDetail;
   //
@@ -74,7 +78,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
               ),
             ),
             Positioned.fill(
-              child: _buildMountFujiSection(context, _detail , _isLoading),
+              child: _buildMountFujiSection(context, _detail, _isLoading),
             ),
             Positioned(
               top: 20, // Adjust the top position to place the header correctly
@@ -88,7 +92,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
                       padding: EdgeInsets.zero, // Remove default padding
                       iconSize: 24, // Adjust the icon size
                       onPressed: () => context.pop(),
-
+                      //onPressed: () => context.go(onboarding_screen),
                       icon: Image.asset('assets/icons/back_button.png'),
                     ),
                   ),
@@ -112,14 +116,12 @@ class _PlaceScreenState extends State<PlaceScreen> {
   }
 
   /// Section Widget
-  Widget _buildMountFujiSection(
-      BuildContext context, Tour detail, bool loading, ) {
+  Widget _buildMountFujiSection(BuildContext context, Tour detail , bool loading) {
     if (loading) {
       return const Center(child: CircularProgressIndicator());
     }
-    // if (detail.isEmpty) {
-    //   return const Center(child: Text('No places available'));
-    // }
+
+
     return SingleChildScrollView(
       padding: const EdgeInsets.only(
         top: 250,
@@ -162,7 +164,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
                       "assets/icons/location.png",
                     ),
                   ),
-                   Padding(
+                  Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text(
                       '${detail.location}, ${detail.country}',
@@ -187,7 +189,6 @@ class _PlaceScreenState extends State<PlaceScreen> {
                 fontWeight: FontWeight.w600,
               ),
             ),
-
             const SizedBox(height: 12),
             Text(
               detail.description,
@@ -211,23 +212,13 @@ class _PlaceScreenState extends State<PlaceScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            _MyBuildViewSection(context, detail.reviews),
+            _MyBuildViewSection(context),
 
             //_buildReviewSection(context),
             const SizedBox(height: 24),
             _buildBookNowButton(context),
             const SizedBox(height: 24),
-            const Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: 124,
-                child: Divider(
-                  height: 4,
-                  thickness: 4,
-                  color: Color(0XFFC8CBD2),
-                ),
-              ),
-            )
+
           ],
         ),
       ),
@@ -279,22 +270,13 @@ class _PlaceScreenState extends State<PlaceScreen> {
   }
 
   /// Section Widget
-  Widget _MyBuildViewSection(BuildContext context, List<Review> rewiews) {
-    return ListView.builder(
-        itemCount: rewiews.length,
-        itemBuilder: (context, index) {
-          Review review = rewiews[index];
-          return  _MyBuildTextReview(review: '');
-        }
+  Widget _MyBuildViewSection(BuildContext context) {
+    return Column(
+      children: [
+        _MyBuildTextReview(review: ''),
+        _MyBuildImageRewiew(img: ''),
+      ],
     );
-
-
-    // return Column(
-    //   children: [
-    //     _MyBuildTextReview(review: ''),
-    //     _MyBuildImageRewiew(img: ''),
-    //   ],
-    // );
   }
 
   Widget _MyBuildTextReview({required String review}) {
@@ -424,8 +406,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
             vertical: 14,
           ),
         ),
-        onPressed: () =>
-            const BookingModalSheet().show_booking_modal_sheet(context),
+        onPressed: () => const BookingModalSheet().show_booking_modal_sheet(context),
         child: const Text(
           "Book Now",
           style: TextStyle(
