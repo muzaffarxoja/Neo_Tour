@@ -215,7 +215,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
             ),
             const SizedBox(height: 16),
             ...detail.reviews.map((review) => _MyBuildTextReview(review)).toList(),
-
+            _MyBuildImageRewiew(detail.images),
             const SizedBox(height: 24),
             _buildBookNowButton(context),
             const SizedBox(height: 24),
@@ -288,55 +288,96 @@ class _PlaceScreenState extends State<PlaceScreen> {
     );
   }
 
-  Widget _MyBuildImageRewiew(Review review) {
-    return SizedBox(
+  Widget _MyBuildImageRewiew(List<String> images) {
+    // if (loading) {
+    //   return const Center(child: CircularProgressIndicator());
+    // }
+    //
+    // if (section_places.isEmpty) {
+    //   return const Center(child: Text('No places available'));
+    // }
+
+    return Container(
+      height: 130,
       width: double.maxFinite,
-      child: Column(
-        children: [
-          // SizedBox(
-          //   width: double.maxFinite,
-          //   child: Row(
-          //     mainAxisSize: MainAxisSize.max,
-          //     children: [
-          //       ClipRRect(
-          //         borderRadius: BorderRadius.circular(
-          //           12,
-          //         ),
-          //         child: Image.asset(
-          //           "assets/images/img_ellipse_62.png",
-          //           height: 24,
-          //           width: 24,
-          //         ),
-          //       ),
-          //       const Align(
-          //         alignment: Alignment.bottomCenter,
-          //         child: Padding(
-          //           padding: EdgeInsets.only(left: 8),
-          //           child: Text(
-          //             "Anonymous",
-          //             style: TextStyle(
-          //               color: Color(0XFF141414),
-          //               fontSize: 16,
-          //               fontFamily: 'SF Pro Display',
-          //               fontWeight: FontWeight.w500,
-          //             ),
-          //           ),
-          //         ),
-          //       )
-          //     ],
-          //   ),
-          // ),
-          const SizedBox(height: 12),
-          Align(
-              alignment: Alignment.bottomRight,
-              child: Image.asset(
-                  width: 195,
-                  height: 185,
-                  "assets/images/img_rectangle_3.png")),
-        ],
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: images.length,
+        itemBuilder: (context, index) {
+          String img = images[index];
+          return Container(
+            width: 130,
+            height: 100,
+            margin: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: GestureDetector(
+                child: Image.network(
+                  img, // Assuming Place has an imageUrl property
+                  fit: BoxFit.cover,
+                ),
+
+              ),
+            ),
+          );
+        },
       ),
     );
   }
+
+
+
+
+  //
+  // Widget _MyBuildImageRewiew(String images) {
+  //   return SizedBox(
+  //     width: double.maxFinite,
+  //     child: Column(
+  //       children: [
+  //         // SizedBox(
+  //         //   width: double.maxFinite,
+  //         //   child: Row(
+  //         //     mainAxisSize: MainAxisSize.max,
+  //         //     children: [
+  //         //       ClipRRect(
+  //         //         borderRadius: BorderRadius.circular(
+  //         //           12,
+  //         //         ),
+  //         //         child: Image.asset(
+  //         //           "assets/images/img_ellipse_62.png",
+  //         //           height: 24,
+  //         //           width: 24,
+  //         //         ),
+  //         //       ),
+  //         //       const Align(
+  //         //         alignment: Alignment.bottomCenter,
+  //         //         child: Padding(
+  //         //           padding: EdgeInsets.only(left: 8),
+  //         //           child: Text(
+  //         //             "Anonymous",
+  //         //             style: TextStyle(
+  //         //               color: Color(0XFF141414),
+  //         //               fontSize: 16,
+  //         //               fontFamily: 'SF Pro Display',
+  //         //               fontWeight: FontWeight.w500,
+  //         //             ),
+  //         //           ),
+  //         //         ),
+  //         //       )
+  //         //     ],
+  //         //   ),
+  //         // ),
+  //         const SizedBox(height: 12),
+  //         Align(
+  //             alignment: Alignment.bottomRight,
+  //             child: Image.asset(
+  //                 width: 195,
+  //                 height: 185,
+  //                 "assets/images/img_rectangle_3.png")),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   /// Section Widget
   Widget _buildBookNowButton(BuildContext context) {
@@ -373,124 +414,126 @@ class _PlaceScreenState extends State<PlaceScreen> {
       ),
     );
   }
+  //
+  // /// Section Widget
+  // Widget _buildReviewText(BuildContext context) {
+  //   return const Text(
+  //     "That was such a nice place. The most beautiful place I’ve ever seen. My advice to everyone not to forget to take warm coat",
+  //     maxLines: 3,
+  //     overflow: TextOverflow.ellipsis,
+  //     style: TextStyle(
+  //       color: Color(0XFF141414),
+  //       fontSize: 16,
+  //       fontFamily: 'SF Pro Display',
+  //       fontWeight: FontWeight.w400,
+  //     ),
+  //   );
+  // }
+
+  // /// Section Widget
+  // Widget _buildAnonymousReviewSection(BuildContext context) {
+  //   return Expanded(
+  //     child: Column(
+  //       children: [
+  //         SizedBox(
+  //           width: double.maxFinite,
+  //           child: Row(
+  //             mainAxisSize: MainAxisSize.max,
+  //             children: [
+  //               ClipRRect(
+  //                 borderRadius: BorderRadius.circular(
+  //                   12,
+  //                 ),
+  //                 child: Image.asset(
+  //                   "assets/images/img_ellipse_62.png",
+  //                   height: 24,
+  //                   width: 24,
+  //                 ),
+  //               ),
+  //               const Align(
+  //                 alignment: Alignment.bottomCenter,
+  //                 child: Padding(
+  //                   padding: EdgeInsets.only(left: 8),
+  //                   child: Text(
+  //                     "Anonymous",
+  //                     style: TextStyle(
+  //                       color: Color(0XFF141414),
+  //                       fontSize: 16,
+  //                       fontFamily: 'SF Pro Display',
+  //                       fontWeight: FontWeight.w500,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               )
+  //             ],
+  //           ),
+  //         ),
+  //         Container(
+  //           width: double.maxFinite,
+  //           margin: const EdgeInsets.only(
+  //             left: 12,
+  //             right: 28,
+  //           ),
+  //           child: Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             mainAxisSize: MainAxisSize.max,
+  //             children: [
+  //               const Align(
+  //                 alignment: Alignment.bottomCenter,
+  //                 child: Text(
+  //                   "Guilin, China",
+  //                   style: TextStyle(
+  //                     color: Color(0XFFFFFFFF),
+  //                     fontSize: 14,
+  //                     fontFamily: 'SF Pro Display',
+  //                     fontWeight: FontWeight.w600,
+  //                   ),
+  //                 ),
+  //               ),
+  //               Padding(
+  //                 padding: const EdgeInsets.only(bottom: 2),
+  //                 child: Image.asset(
+  //                   "assets/images/img_rectangle_3.png",
+  //                   height: 184,
+  //                   width: 194,
+  //                 ),
+  //               )
+  //             ],
+  //           ),
+  //         ),
+  //         const SizedBox(height: 22),
+  //         Align(
+  //           alignment: Alignment.centerLeft,
+  //           child: Container(
+  //             height: 40,
+  //             width: 184,
+  //             decoration: const BoxDecoration(
+  //               color: Color(0XFF9F9F9F),
+  //               borderRadius: BorderRadius.vertical(
+  //                 bottom: Radius.circular(10),
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //         const SizedBox(height: 12),
+  //         _buildReviewText(context)
+  //       ],
+  //     ),
+  //   );
+  // }
 
   /// Section Widget
-  Widget _buildReviewText(BuildContext context) {
-    return const Text(
-      "That was such a nice place. The most beautiful place I’ve ever seen. My advice to everyone not to forget to take warm coat",
-      maxLines: 3,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(
-        color: Color(0XFF141414),
-        fontSize: 16,
-        fontFamily: 'SF Pro Display',
-        fontWeight: FontWeight.w400,
-      ),
-    );
-  }
+//   Widget _buildViewRowSection(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.only(
+//         left: 16,
+//         right: 12,
+//       ),
+//       child: Row(
+//         children: [_buildAnonymousReviewSection(context)],
+//       ),
+//     );
+//   }
 
-  /// Section Widget
-  Widget _buildAnonymousReviewSection(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          SizedBox(
-            width: double.maxFinite,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(
-                    12,
-                  ),
-                  child: Image.asset(
-                    "assets/images/img_ellipse_62.png",
-                    height: 24,
-                    width: 24,
-                  ),
-                ),
-                const Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 8),
-                    child: Text(
-                      "Anonymous",
-                      style: TextStyle(
-                        color: Color(0XFF141414),
-                        fontSize: 16,
-                        fontFamily: 'SF Pro Display',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Container(
-            width: double.maxFinite,
-            margin: const EdgeInsets.only(
-              left: 12,
-              right: 28,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                const Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    "Guilin, China",
-                    style: TextStyle(
-                      color: Color(0XFFFFFFFF),
-                      fontSize: 14,
-                      fontFamily: 'SF Pro Display',
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 2),
-                  child: Image.asset(
-                    "assets/images/img_rectangle_3.png",
-                    height: 184,
-                    width: 194,
-                  ),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(height: 22),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              height: 40,
-              width: 184,
-              decoration: const BoxDecoration(
-                color: Color(0XFF9F9F9F),
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(10),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-          _buildReviewText(context)
-        ],
-      ),
-    );
-  }
 
-  /// Section Widget
-  Widget _buildViewRowSection(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 16,
-        right: 12,
-      ),
-      child: Row(
-        children: [_buildAnonymousReviewSection(context)],
-      ),
-    );
-  }
-}
+ }
