@@ -214,10 +214,8 @@ class _PlaceScreenState extends State<PlaceScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            _MyBuildViewSection(context, dummy_review),
+            ...detail.reviews.map((review) => _MyBuildTextReview(review)).toList(),
 
-
-            //_buildReviewSection(context),
             const SizedBox(height: 24),
             _buildBookNowButton(context),
             const SizedBox(height: 24),
@@ -229,23 +227,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
   }
 
 
-  /// Section Widget
-  Widget _MyBuildViewSection(BuildContext context, List<Review> reviews ) {
-    if (reviews.isEmpty) {
-      return const Center(child: Text('No reviews available'));
-    }
 
-    return Container(
-      height: 200,
-      child: ListView.builder(
-          itemCount: reviews.length,
-          itemBuilder: (context, index) {
-           return  _MyBuildTextReview(reviews[index]);
-          }
-      ),
-    );
-
-    }
 
   Widget _MyBuildTextReview(Review review) {
     return SizedBox(
@@ -261,7 +243,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
                   borderRadius: BorderRadius.circular(
                     12,
                   ),
-                  child: Image.asset(
+                  child: Image.network(
                     review.imageUrl,
                     height: 24,
                     width: 24,
@@ -285,18 +267,22 @@ class _PlaceScreenState extends State<PlaceScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 12),
-          Text(
-            review.review,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: Color(0XFF141414),
-              fontSize: 16,
-              fontFamily: 'SF Pro Display',
-              fontWeight: FontWeight.w400,
+         // const SizedBox(height: 2),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              review.review,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: Color(0XFF141414),
+                fontSize: 16,
+                fontFamily: 'SF Pro Display',
+                fontWeight: FontWeight.w400,
+              ),
             ),
-          )
+          ),
+          const SizedBox(height: 10),
         ],
       ),
     );
