@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:neo_tour/models/booking.dart';
@@ -9,17 +10,24 @@ import '../../provider/counter_and_number.dart';
 
 class BookingModalSheet extends StatelessWidget {
   BookingModalSheet({Key? key}) : super(key: key);
+  TextEditingController commentController = TextEditingController();
+
+  String _phoneToPost='';
+  // String _commentToPost='';
+  // int _peopleAmountToPost=0;
 
   void postBooking(
   { required String phone, required String comment,required int peopleAmount}) {
     Booking bookingData = Booking(
-        id: 1,
-        phone: phone,
-        comment: comment,
-        peopleAmount: peopleAmount,
-        username: 'username',
-        tourId: 1);
+        //id: 1,
+        phone: '+998998809090',
+        comment: 'hgfh',
+        people_amount: 3,
+        //username: 'username',
+        tourId: 6
+    );
 
+     debugPrint(bookingData.toJson().toString());
     BookingRepository().book(bookingInfo: bookingData);
   }
 
@@ -79,6 +87,7 @@ class BookingModalSheet extends StatelessWidget {
             const SizedBox(height: 3),
             Container(
               child: TextField(
+                controller: commentController,
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(
@@ -135,7 +144,7 @@ class BookingModalSheet extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  postBooking(phone: '', peopleAmount: 1, comment: '');
+                  postBooking(phone: BookingModalSheet()._phoneToPost, peopleAmount: Counter().count, comment: commentController.text);
                   Navigator.of(ctx).pop();
                 },
                 child: const Text(
@@ -170,7 +179,7 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
   final TextEditingController controller = TextEditingController();
   String initialCountry = 'KG'; // Initial selection
   PhoneNumber intNumber = PhoneNumber(isoCode: 'KG');
-  //PhoneNumber fullNumber = PhoneNumber();
+  PhoneNumber fullNumber = PhoneNumber();
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +197,7 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
               onInputChanged: (PhoneNumber number) {
                 //fullNumber = number;
                 context.read<MyPhoneNumber>().fullNumberPr = number;
-                print(number.phoneNumber); // Print full phone number to console
+                fullNumber = number;
               },
               selectorConfig: SelectorConfig(
                 selectorType: PhoneInputSelectorType.BOTTOM_SHEET,

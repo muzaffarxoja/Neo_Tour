@@ -3,19 +3,22 @@ import 'package:json_annotation/json_annotation.dart';
 part "booking.g.dart";
 
 @JsonSerializable()
+
+
+
 class Booking {
-  final int id;
+  //final int id;
   final String phone;
   final String comment;
-  final int peopleAmount;
-  final String username;
+  final int people_amount;
+  //final String username;
   final int tourId;
   Booking(
-      {required this.id,
+      {//required this.id,
       required this.phone,
       required this.comment,
-      required this.peopleAmount,
-      required this.username,
+      required this.people_amount,
+      //required this.username,
       required this.tourId});
 
   factory Booking.fromJson(Map<String, dynamic> json) =>

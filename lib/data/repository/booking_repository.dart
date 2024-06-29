@@ -13,9 +13,9 @@ class BookingRepository {
         data: bookingInfo.toJson(),
       );
 
-      print('User created: ${response.data}');
+      //print('User created: ${response.data}');
 
-      bookedUser = Booking.fromJson(response.data);
+      //bookedUser = Booking.fromJson(response.data);
     } catch (e) {
       print('Error creating user: $e');
     }
