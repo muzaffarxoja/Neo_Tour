@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:neo_tour/models/place.dart';
-import 'package:neo_tour/models/place_detail.dart';
+
 
 import '../../models/tour.dart';
 
@@ -51,10 +51,6 @@ class PlacesRepository {
           response.data; // Dio already decodes the JSON for you
       Tour placeDetail =Tour.fromJson(data);
 
-
-      // final data =
-      //     response.data; // Dio already decodes the JSON for you
-      // final placeDetail = data.map((json) => PlaceDetail.fromMap(json));
 
       debugPrint(response.data.toString());
       return placeDetail;
