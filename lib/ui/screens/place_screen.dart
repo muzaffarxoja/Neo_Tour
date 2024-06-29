@@ -335,7 +335,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
             vertical: 14,
           ),
         ),
-        onPressed: () => const BookingModalSheet().show_booking_modal_sheet(context),
+        onPressed: () =>  BookingModalSheet().show_booking_modal_sheet(context),
         child: const Text(
           "Book Now",
           style: TextStyle(

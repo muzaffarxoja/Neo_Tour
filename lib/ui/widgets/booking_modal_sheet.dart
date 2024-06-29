@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:neo_tour/models/booking.dart';
 import 'package:neo_tour/provider/my_phone_number.dart';
 import 'package:provider/provider.dart';
 
+import '../../data/repository/booking_repository.dart';
 import '../../provider/counter_and_number.dart';
 
 class BookingModalSheet extends StatelessWidget {
-  const BookingModalSheet({Key? key}) : super(key: key);
+  BookingModalSheet({Key? key}) : super(key: key);
+
+  void postBooking(
+  { required String phone, required String comment,required int peopleAmount}) {
+    Booking bookingData = Booking(
+        id: 1,
+        phone: phone,
+        comment: comment,
+        peopleAmount: peopleAmount,
+        username: 'username',
+        tourId: 1);
+
+    BookingRepository().book(bookingInfo: bookingData);
+  }
 
   // This function is triggered when the floating buttion is pressed
   void show_booking_modal_sheet(BuildContext contex) {
@@ -96,7 +111,9 @@ class BookingModalSheet extends StatelessWidget {
                   fontWeight: FontWeight.w400),
             ),
             CounterWidget(),
-            SizedBox(height: 50,),
+            SizedBox(
+              height: 50,
+            ),
             SizedBox(
               width: double.maxFinite,
               height: 50,
@@ -117,7 +134,10 @@ class BookingModalSheet extends StatelessWidget {
                     vertical: 14,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  postBooking(phone: '', peopleAmount: 1, comment: '');
+                  Navigator.of(ctx).pop();
+                },
                 child: const Text(
                   "Submit",
                   style: TextStyle(
@@ -138,7 +158,6 @@ class BookingModalSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Placeholder();
-
   }
 }
 
@@ -264,11 +283,12 @@ class CounterWidget extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         SizedBox(width: 5),
-        Text('${counter.count.toString()} people',
-            style: TextStyle(
-            fontSize: 16,
-            fontFamily: 'SF Pro Display',
-            fontWeight: FontWeight.w500),
+        Text(
+          '${counter.count.toString()} people',
+          style: TextStyle(
+              fontSize: 16,
+              fontFamily: 'SF Pro Display',
+              fontWeight: FontWeight.w500),
         ),
       ],
     );
