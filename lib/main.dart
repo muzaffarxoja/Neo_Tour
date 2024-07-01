@@ -31,7 +31,7 @@ final _router = GoRouter(
     ),
     GoRoute(
       path: place_screen,
-      builder: (context, state) =>PlaceScreen(singlePlace: state.extra as Place),
+      builder: (context, state) => PlaceScreen(singlePlace: state.extra as Place),
     ),
 
     GoRoute(

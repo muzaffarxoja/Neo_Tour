@@ -37,14 +37,8 @@ class _PlaceScreenState extends State<PlaceScreen> {
     setState(() {
       _detail = detail;
       _isLoading = false;
-
-
     });
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +59,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
               ),
             ),
             Positioned.fill(
-              child: _buildMountFujiSection(context, _detail, _isLoading),
+              child: _buildMountFujiSection(),
             ),
             Positioned(
               top: 20, // Adjust the top position to place the header correctly
@@ -103,12 +97,10 @@ class _PlaceScreenState extends State<PlaceScreen> {
   }
 
   /// Section Widget
-  Widget _buildMountFujiSection(BuildContext context, Tour detail , bool loading) {
-    if (loading) {
+  Widget _buildMountFujiSection() {
+    if (_isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
-
-
     return SingleChildScrollView(
       padding: const EdgeInsets.only(
         top: 250,
@@ -130,7 +122,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              detail.name,
+              _detail.name,
               style: TextStyle(
                 color: Color(0XFF141414),
                 fontSize: 24,
@@ -154,7 +146,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text(
-                      '${detail.location}, ${detail.country}',
+                      '${_detail.location}, ${_detail.country}',
                       style: TextStyle(
                         color: Color(0XFF141414),
                         fontSize: 12,
@@ -178,7 +170,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
             ),
             const SizedBox(height: 12),
             Text(
-              detail.description,
+              _detail.description,
               maxLines: 4,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -199,8 +191,8 @@ class _PlaceScreenState extends State<PlaceScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            ...detail.reviews.map((review) => _MyBuildTextReview(review)).toList(),
-            _MyBuildImageRewiew(detail.images),
+            ..._detail.reviews.map((review) => _MyBuildTextReview(review)).toList(),
+            _MyBuildImageRewiew(_detail.images),
             const SizedBox(height: 24),
             _buildBookNowButton(context),
             const SizedBox(height: 24),
