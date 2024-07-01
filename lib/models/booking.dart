@@ -3,9 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 part "booking.g.dart";
 
 @JsonSerializable()
-
-
-
 class Booking {
   //final int id;
   final String phone;
