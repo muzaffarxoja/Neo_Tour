@@ -17,20 +17,32 @@ class BookingModalSheet extends StatelessWidget {
   // int _peopleAmountToPost=0;
 
   void postBooking(
-  { required String phone, required String comment,required int peopleAmount}) {
+  { required String phone, required String comment,
+    required int peopleAmount}) async {
+    BookingRepository bookingRepository = BookingRepository();
+
+
     Booking bookingData = Booking(
-        //id: 1,
+
         phone: '+998998809090',
         comment: 'hgfh',
         people_amount: 3,
-        //username: 'username',
         tourId: 6
     );
 
+
+    var result = await bookingRepository.book(bookingInfo: bookingData);
+    if (result != null) {
+      print("Booking succeeded: $result");
+      debugPrint('${result['tourId']}');
+    } else {
+      print("Booking failed");
+    }
+
      //debugPrint(bookingData.toJson().toString());
-    BookingRepository().book(
-        bookingInfo: bookingData
-    );
+    // BookingRepository().book(
+    //     bookingInfo: bookingData
+    // );
   }
 
   // This function is triggered when the floating buttion is pressed

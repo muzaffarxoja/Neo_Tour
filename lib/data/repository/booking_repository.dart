@@ -44,8 +44,7 @@ class BookingRepository {
   }
 
   Future<dynamic> book({required Booking bookingInfo}) async {
-    //Booking? bookedUser;
-    //late Response response;
+
     // Ensure the user is logged in and we have a token
     String? token = await login("muzaffar", "1234");
     if (token == null) {
