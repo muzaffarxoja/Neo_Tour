@@ -16,7 +16,7 @@ class BookingModalSheet extends StatelessWidget {
   final int id;
 
   void postBooking(
-      {required String phone, required String comment, required int peopleAmount}) async {
+      { required String phone, required String comment, required int peopleAmount}) async {
     BookingRepository bookingRepository = BookingRepository();
 
     Booking bookingData = Booking(
@@ -29,18 +29,20 @@ class BookingModalSheet extends StatelessWidget {
     var result = await bookingRepository.book(bookingInfo: bookingData);
     if (result != null) {
       print("Booking succeeded: $result");
-      debugPrint('${result['tourId']}');
+
+      //_showBookingAlert(context, 'Tour has been booked succesfully');
     } else {
       print("Booking failed");
+      //_showBookingAlert(context, 'Booking failed');
     }
   }
 
-  void _showBookingAlert(BuildContext context) {
+  void _showBookingAlert(BuildContext context, String alert) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: const Text('The Tour has been booked.'),
+          content: Text(alert),
           actions: [
             Center(
               child: SizedBox(
@@ -188,7 +190,7 @@ class BookingModalSheet extends StatelessWidget {
 
                       Navigator.of(ctx).pop();
 
-                      _showBookingAlert(context);
+                      _showBookingAlert(context,'Tour has been seccesfully booked');
 
 
                     },
