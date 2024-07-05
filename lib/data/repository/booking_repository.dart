@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:neo_tour/models/booking.dart';
 
-const token = 'eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoicnJyciIsImlhdCI6MTcxOTg0OTQyNywicm9sZXMiOiJVU0VSIn0.dlOY7okRCMaFX8XcnM46SLNdls_0CxRw7cy2_vrRy6lrnBiSD_d79ZOMemv-lPIRFUy0HbVgtx9HeI5SwC7wxhppBjalACi5fz1TpnpnOpglCh0JruL3XrlPA4xGADaHOOlLmAXEaHLr6_EkDsJD5Lj2DB_Dnp_Dq5rwvbDBztbPw15mTdvnyGk1_bpsd0lH1FMYTRdr4fIrFqdAxAWPPUe34ZzDlt-sY6g2mItG-bMdtloT4dHrPsvqTstjuAzocHbP_w8Xp3adEXJsq9hPISvV0h4cnWl4fb53Mj3w8Q0X1Go4ssODW1Q7cHuY0-Ji4nmlkViC0heGEh9T5uWFHg';
+ String token ='';
 
 class BookingRepository {
   final Dio dio = Dio();
@@ -21,6 +21,35 @@ class BookingRepository {
   Future<Booking?> book({required Booking bookingInfo}) async {
 
     Booking? bookedUser;
+
+    String url='https://neotour-production-392c.up.railway.app/api/login';
+    Map<String,dynamic> data = {
+      "username": "muzaffar",
+      "password": "1234"
+    };
+
+    try {
+      Response loginResponse = await dio.post(
+        url,
+        data: data,
+      );
+
+      token=loginResponse.data["accessToken"];
+
+
+
+
+      //bookedUser = Booking.fromJson(response.data);
+    } catch (e) {
+      print('Error creating user: $e');
+    }
+
+    return bookedUser;
+  }
+
+
+
+
     try {
 
       Response response = await dio.post(
