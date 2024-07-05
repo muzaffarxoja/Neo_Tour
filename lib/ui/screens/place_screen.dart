@@ -25,6 +25,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
   bool _isLoading = true;
 
 
+
   @override
   void initState() {
     super.initState();
@@ -327,7 +328,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
             vertical: 14,
           ),
         ),
-        onPressed: () =>  BookingModalSheet().show_booking_modal_sheet(context),
+        onPressed: () =>  BookingModalSheet(id: _detail.id).show_booking_modal_sheet(context),
         child: const Text(
           "Book Now",
           style: TextStyle(

@@ -9,9 +9,9 @@ import '../../data/repository/booking_repository.dart';
 import '../../provider/counter_and_number.dart';
 
 class BookingModalSheet extends StatelessWidget {
-  BookingModalSheet({Key? key}) : super(key: key);
+  BookingModalSheet({Key? key, required int this.id}) : super(key: key);
   TextEditingController commentController = TextEditingController();
-
+  final int id;
   String _phoneToPost='';
   // String _commentToPost='';
   // int _peopleAmountToPost=0;
@@ -24,10 +24,10 @@ class BookingModalSheet extends StatelessWidget {
 
     Booking bookingData = Booking(
 
-        phone: '+998998809090',
-        comment: 'hgfh',
-        people_amount: 3,
-        tourId: 6
+        phone: phone,
+        comment: comment,
+        people_amount: peopleAmount,
+        tourId: id
     );
 
 
@@ -39,10 +39,7 @@ class BookingModalSheet extends StatelessWidget {
       print("Booking failed");
     }
 
-     //debugPrint(bookingData.toJson().toString());
-    // BookingRepository().book(
-    //     bookingInfo: bookingData
-    // );
+
   }
 
   // This function is triggered when the floating buttion is pressed
@@ -158,7 +155,7 @@ class BookingModalSheet extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  postBooking(phone: BookingModalSheet()._phoneToPost, peopleAmount: Counter().count, comment: commentController.text);
+                  postBooking(phone: _phoneToPost, peopleAmount: Counter().count, comment: commentController.text,);
                   Navigator.of(ctx).pop();
                 },
                 child: const Text(
