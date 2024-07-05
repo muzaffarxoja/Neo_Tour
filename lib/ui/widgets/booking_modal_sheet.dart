@@ -43,31 +43,30 @@ class BookingModalSheet extends StatelessWidget {
           content: const Text('The Tour has been booked.'),
           actions: [
             Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0XFF6A62B6),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24),
+              child: SizedBox(
+                width: double.maxFinite, // Set the width here
+                height: 35, // Set the height here
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0XFF6A62B6),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    visualDensity: const VisualDensity(
+                      vertical: -4,
+                      horizontal: -4,
+                    ),
                   ),
-                  visualDensity: const VisualDensity(
-                    vertical: -4,
-                    horizontal: -4,
-                  ),
-
-                ),
-                onPressed: () {
-
-
-                  Navigator.of(context).pop();
-
-
-                },
-                child: const Text(
-                  "Ok",
-                  style: TextStyle(
-                    color: Color(0XFFFFFFFF),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    "Ok",
+                    style: TextStyle(
+                      color: Color(0XFFFFFFFF),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
@@ -77,6 +76,7 @@ class BookingModalSheet extends StatelessWidget {
       },
     );
   }
+
 
 
   void show_booking_modal_sheet(BuildContext context) {
