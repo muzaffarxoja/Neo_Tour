@@ -45,7 +45,7 @@ class BookingRepository {
 
   Future<dynamic> book({required Booking bookingInfo}) async {
     //Booking? bookedUser;
-    late Response response;
+    //late Response response;
     // Ensure the user is logged in and we have a token
     String? token = await login("muzaffar", "1234");
     if (token == null) {
@@ -57,13 +57,14 @@ class BookingRepository {
     Map<String, dynamic> data = bookingInfo.toJson();
 
     try {
-      response = await dio.post(
+      Response response = await dio.post(
         url,
         data: data,
       );
 
       debugPrint("Booking successful: ${response.data}");
-          } on DioError catch (e) {
+      return response.data;
+    } on DioError catch (e) {
       if (e.response != null) {
         debugPrint('Error creating booking: ${e.response?.statusCode}');
         debugPrint('Response data: ${e.response?.data}');
@@ -71,14 +72,8 @@ class BookingRepository {
         debugPrint('Error creating booking: ${e.message}');
       }
     }
-
-    return response.data;
   }
 }
-
-
-
-
 
 // import 'package:dio/dio.dart';
 // import 'package:neo_tour/models/booking.dart';
