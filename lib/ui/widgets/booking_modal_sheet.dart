@@ -27,7 +27,7 @@ class BookingModalSheet extends StatelessWidget {
         tourId: 6
     );
 
-     debugPrint(bookingData.toJson().toString());
+     //debugPrint(bookingData.toJson().toString());
     BookingRepository().book(bookingInfo: bookingData);
   }
 
