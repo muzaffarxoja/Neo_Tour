@@ -9,19 +9,22 @@ class BookingRepository {
 
   BookingRepository() {
     dio.options = BaseOptions(
-      baseUrl: '',
+      baseUrl: 'https://neotour-production-392c.up.railway.app/api',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer $token',
       },
     );
   }
 
-  Future<Booking?> book({required Booking bookingInfo}) async {
+  //Future<Booking?>
+  void book(
+
+      //{required Booking bookingInfo}
+      ) async {
     Booking? bookedUser;
 
-    String url = 'https://neotour-production-392c.up.railway.app/api/login';
+    String url = '/login';
     Map<String, dynamic> data = {"username": "muzaffar", "password": "1234"};
 
     try {
@@ -30,7 +33,7 @@ class BookingRepository {
         data: data,
       );
 
-      token = loginResponse.data["accessToken"];
+      //token = loginResponse.data["accessToken"];
       debugPrint(loginResponse.data.toString());
 
       //bookedUser = Booking.fromJson(response.data);
@@ -38,6 +41,6 @@ class BookingRepository {
       print('Error creating user: $e');
     }
 
-    return bookedUser;
+    //return bookedUser;
   }
 }

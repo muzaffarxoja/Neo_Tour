@@ -18,17 +18,19 @@ class BookingModalSheet extends StatelessWidget {
 
   void postBooking(
   { required String phone, required String comment,required int peopleAmount}) {
-    Booking bookingData = Booking(
-        //id: 1,
-        phone: '+998998809090',
-        comment: 'hgfh',
-        people_amount: 3,
-        //username: 'username',
-        tourId: 6
-    );
+    // Booking bookingData = Booking(
+    //     //id: 1,
+    //     phone: '+998998809090',
+    //     comment: 'hgfh',
+    //     people_amount: 3,
+    //     //username: 'username',
+    //     tourId: 6
+    // );
 
      //debugPrint(bookingData.toJson().toString());
-    BookingRepository().book(bookingInfo: bookingData);
+    BookingRepository().book(
+        //bookingInfo: bookingData
+    );
   }
 
   // This function is triggered when the floating buttion is pressed
