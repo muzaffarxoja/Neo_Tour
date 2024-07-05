@@ -9,27 +9,21 @@ import '../../data/repository/booking_repository.dart';
 import '../../provider/counter_and_number.dart';
 
 class BookingModalSheet extends StatelessWidget {
-  BookingModalSheet({Key? key, required int this.id}) : super(key: key);
-  TextEditingController commentController = TextEditingController();
+  BookingModalSheet({Key? key, required this.id}) : super(key: key);
+
+  final TextEditingController commentController = TextEditingController();
   final int id;
-  String _phoneToPost='';
-  // String _commentToPost='';
-  // int _peopleAmountToPost=0;
 
   void postBooking(
-  { required String phone, required String comment,
-    required int peopleAmount}) async {
+      {required String phone, required String comment, required int peopleAmount}) async {
     BookingRepository bookingRepository = BookingRepository();
 
-
     Booking bookingData = Booking(
-
-        phone: phone,
-        comment: comment,
-        people_amount: peopleAmount,
-        tourId: id
+      phone: phone,
+      comment: comment,
+      people_amount: peopleAmount,
+      tourId: id,
     );
-
 
     var result = await bookingRepository.book(bookingInfo: bookingData);
     if (result != null) {
@@ -38,138 +32,130 @@ class BookingModalSheet extends StatelessWidget {
     } else {
       print("Booking failed");
     }
-
-
   }
 
-  // This function is triggered when the floating buttion is pressed
-  void show_booking_modal_sheet(BuildContext contex) {
+  void show_booking_modal_sheet(BuildContext context) {
     showModalBottomSheet(
       isScrollControlled: true,
       elevation: 5,
-      context: contex,
+      context: context,
       builder: (ctx) => Padding(
         padding: EdgeInsets.only(
             top: 15,
             left: 15,
             right: 15,
             bottom: MediaQuery.of(ctx).viewInsets.bottom + 15),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Info',
-              style: TextStyle(
-                  color: Color(0XFF141414),
-                  fontSize: 24,
-                  //fontFamily: 'SF Pro Display',
-                  fontWeight: FontWeight.w700),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'To submit an application for a tour reservation, you need to fill in your information and select the number of people for the reservation',
-              style: TextStyle(
-                  color: Color(0XFF141414),
-                  fontSize: 14,
-                  //fontFamily: 'SF Pro Display',
-                  fontWeight: FontWeight.w400),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              'Phone number',
-              style: TextStyle(
-                  color: Color(0XFF888888),
-                  fontSize: 14,
-                  //fontFamily: 'SF Pro Display',
-                  fontWeight: FontWeight.w400),
-            ),
-            const SizedBox(height: 3),
-            PhoneNumberInputWidget(),
-            const SizedBox(height: 12),
-            Text(
-              'Commentaries to trip',
-              style: TextStyle(
-                  color: Color(0XFF888888),
-                  fontSize: 14,
-                  //fontFamily: 'SF Pro Display',
-                  fontWeight: FontWeight.w400),
-            ),
-            const SizedBox(height: 3),
-            Container(
-              child: TextField(
-                controller: commentController,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 20.0),
-                    border: InputBorder.none,
-                    hintStyle:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                    hintText: 'Write your wishes to trip...'),
-              ),
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xff6A62B7)),
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Consumer<MyPhoneNumber>(
-              builder: (context, myPhoneNumber, child) {
-                return Text(myPhoneNumber.fullNumberPr.phoneNumber.toString());
-              },
-            ),
-            const SizedBox(height: 12),
-            Text(
-              'Number of people',
-              style: TextStyle(
-                  color: Color(0XFF888888),
-                  fontSize: 14,
-                  //fontFamily: 'SF Pro Display',
-                  fontWeight: FontWeight.w400),
-            ),
-            CounterWidget(),
-            SizedBox(
-              height: 50,
-            ),
-            SizedBox(
-              width: double.maxFinite,
-              height: 50,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0XFF6A62B6),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      24,
+        child: Consumer<MyPhoneNumber>(
+          builder: (context, myPhoneNumber, child) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Info',
+                  style: TextStyle(
+                      color: Color(0XFF141414),
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'To submit an application for a tour reservation, you need to fill in your information and select the number of people for the reservation',
+                  style: TextStyle(
+                      color: Color(0XFF141414),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  'Phone number',
+                  style: TextStyle(
+                      color: Color(0XFF888888),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+                const SizedBox(height: 3),
+                PhoneNumberInputWidget(),
+                const SizedBox(height: 12),
+                Text(
+                  'Commentaries to trip',
+                  style: TextStyle(
+                      color: Color(0XFF888888),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+                const SizedBox(height: 3),
+                Container(
+                  child: TextField(
+                    controller: commentController,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 20.0),
+                        border: InputBorder.none,
+                        hintStyle: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w400),
+                        hintText: 'Write your wishes to trip...'),
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xff6A62B7)),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  'Number of people',
+                  style: TextStyle(
+                      color: Color(0XFF888888),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+                const CounterWidget(),
+                const SizedBox(height: 50),
+                SizedBox(
+                  width: double.maxFinite,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0XFF6A62B6),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      visualDensity: const VisualDensity(
+                        vertical: -4,
+                        horizontal: -4,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 14,
+                      ),
+                    ),
+                    onPressed: () {
+                      final phone = myPhoneNumber.fullNumberPr.phoneNumber ?? '';
+                      final comment = commentController.text;
+                      final peopleAmount = Provider.of<Counter>(context, listen: false).count;
+
+                      postBooking(
+                        phone: phone,
+                        peopleAmount: peopleAmount,
+                        comment: comment,
+                      );
+
+                      Navigator.of(ctx).pop();
+                    },
+                    child: const Text(
+                      "Submit",
+                      style: TextStyle(
+                        color: Color(0XFFFFFFFF),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                  visualDensity: const VisualDensity(
-                    vertical: -4,
-                    horizontal: -4,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 30,
-                    vertical: 14,
-                  ),
                 ),
-                onPressed: () {
-                  postBooking(phone: _phoneToPost, peopleAmount: Counter().count, comment: commentController.text,);
-                  Navigator.of(ctx).pop();
-                },
-                child: const Text(
-                  "Submit",
-                  style: TextStyle(
-                    color: Color(0XFFFFFFFF),
-                    fontSize: 18,
-                    fontFamily: 'SF Pro Display',
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            )
-          ],
+              ],
+            );
+          },
         ),
       ),
     );
@@ -190,7 +176,6 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
   final TextEditingController controller = TextEditingController();
   String initialCountry = 'KG'; // Initial selection
   PhoneNumber intNumber = PhoneNumber(isoCode: 'KG');
-  PhoneNumber fullNumber = PhoneNumber();
 
   @override
   Widget build(BuildContext context) {
@@ -202,13 +187,10 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
             borderRadius: BorderRadius.circular(30.0), // Circular border
           ),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
             child: InternationalPhoneNumberInput(
               onInputChanged: (PhoneNumber number) {
-                //fullNumber = number;
                 context.read<MyPhoneNumber>().fullNumberPr = number;
-                fullNumber = number;
               },
               selectorConfig: SelectorConfig(
                 selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
@@ -273,7 +255,6 @@ class CounterWidget extends StatelessWidget {
                 counter.count.toString(),
                 style: TextStyle(
                     fontSize: 16,
-                    fontFamily: 'SF Pro Display',
                     fontWeight: FontWeight.w900),
               ),
               Container(
@@ -307,7 +288,6 @@ class CounterWidget extends StatelessWidget {
           '${counter.count.toString()} people',
           style: TextStyle(
               fontSize: 16,
-              fontFamily: 'SF Pro Display',
               fontWeight: FontWeight.w500),
         ),
       ],
