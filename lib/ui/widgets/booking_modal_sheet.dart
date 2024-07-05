@@ -40,14 +40,39 @@ class BookingModalSheet extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Alert Dialog Title'),
-          content: const Text('This is the content of the alert dialog.'),
+          //title: const Text('Alert Dialog Title'),
+          content: const Text('The Tour has been booked.'),
           actions: [
-            TextButton(
-              child: const Text('ok'),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0XFF6A62B6),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                visualDensity: const VisualDensity(
+                  vertical: -4,
+                  horizontal: -4,
+                ),
+                // padding: const EdgeInsets.symmetric(
+                //   horizontal: 30,
+                //   vertical: 14,
+                // ),
+              ),
               onPressed: () {
+
+
                 Navigator.of(context).pop();
+
+
               },
+              child: const Text(
+                "Ok",
+                style: TextStyle(
+                  color: Color(0XFFFFFFFF),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
           ],
         );
