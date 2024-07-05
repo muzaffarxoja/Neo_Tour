@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../data/repository/booking_repository.dart';
 import '../../provider/counter_and_number.dart';
+import 'package:neo_tour/ui/widgets/booking_alert.dart';
 
 class BookingModalSheet extends StatelessWidget {
   BookingModalSheet({Key? key, required this.id}) : super(key: key);
@@ -33,6 +34,27 @@ class BookingModalSheet extends StatelessWidget {
       print("Booking failed");
     }
   }
+
+  void _showBookingAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Alert Dialog Title'),
+          content: const Text('This is the content of the alert dialog.'),
+          actions: [
+            TextButton(
+              child: const Text('ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   void show_booking_modal_sheet(BuildContext context) {
     showModalBottomSheet(
@@ -142,6 +164,10 @@ class BookingModalSheet extends StatelessWidget {
                       );
 
                       Navigator.of(ctx).pop();
+
+                      _showBookingAlert(context);
+
+
                     },
                     child: const Text(
                       "Submit",
