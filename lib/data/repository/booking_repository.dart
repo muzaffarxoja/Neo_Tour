@@ -43,9 +43,9 @@ class BookingRepository {
     }
   }
 
-  Future<Booking?> book({required Booking bookingInfo}) async {
-    Booking? bookedUser;
-
+  Future<dynamic> book({required Booking bookingInfo}) async {
+    //Booking? bookedUser;
+    late Response response;
     // Ensure the user is logged in and we have a token
     String? token = await login("muzaffar", "1234");
     if (token == null) {
@@ -57,14 +57,13 @@ class BookingRepository {
     Map<String, dynamic> data = bookingInfo.toJson();
 
     try {
-      Response response = await dio.post(
+      response = await dio.post(
         url,
         data: data,
       );
 
       debugPrint("Booking successful: ${response.data}");
-      //bookedUser = Booking.fromJson(response.data);
-    } on DioError catch (e) {
+          } on DioError catch (e) {
       if (e.response != null) {
         debugPrint('Error creating booking: ${e.response?.statusCode}');
         debugPrint('Response data: ${e.response?.data}');
@@ -73,7 +72,7 @@ class BookingRepository {
       }
     }
 
-    return bookedUser;
+    return response.data;
   }
 }
 
