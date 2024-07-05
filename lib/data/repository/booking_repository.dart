@@ -17,11 +17,7 @@ class BookingRepository {
     );
   }
 
-  //Future<Booking?>
-  void book(
-
-      //{required Booking bookingInfo}
-      ) async {
+  Future<Booking?> book({required Booking bookingInfo}) async {
     Booking? bookedUser;
 
     String url = '/login';
@@ -33,14 +29,13 @@ class BookingRepository {
         data: data,
       );
 
-      //token = loginResponse.data["accessToken"];
-      debugPrint(loginResponse.data.toString());
+      token = loginResponse.data["accessToken"];
+      debugPrint(token);
 
-      //bookedUser = Booking.fromJson(response.data);
-    } catch (e) {
+        } catch (e) {
       print('Error creating user: $e');
     }
 
-    //return bookedUser;
+    return bookedUser;
   }
 }
