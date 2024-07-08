@@ -1,17 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:neo_tour/data/repository/booking_repository.dart';
 import 'package:neo_tour/data/repository/places_repository.dart';
+import 'package:neo_tour/models/booking.dart';
 import 'package:neo_tour/models/tour.dart';
 import 'package:neo_tour/ui/widgets/booking_modal_sheet.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../main.dart';
 import '../../models/place.dart';
 import '../../models/review.dart';
 
 class PlaceScreen extends StatefulWidget {
   final Place singlePlace;
-
 
   const PlaceScreen({super.key, required this.singlePlace});
 
@@ -20,11 +19,8 @@ class PlaceScreen extends StatefulWidget {
 }
 
 class _PlaceScreenState extends State<PlaceScreen> {
-
   late final Tour _detail;
   bool _isLoading = true;
-
-
 
   @override
   void initState() {
@@ -124,7 +120,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
           children: [
             Text(
               _detail.name,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0XFF141414),
                 fontSize: 24,
                 // fontFamily: 'SF Pro Display',
@@ -145,10 +141,10 @@ class _PlaceScreenState extends State<PlaceScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 8),
+                    padding: const EdgeInsets.only(left: 8),
                     child: Text(
                       '${_detail.location}, ${_detail.country}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0XFF141414),
                         fontSize: 12,
                         fontFamily: 'SF Pro Display',
@@ -174,7 +170,7 @@ class _PlaceScreenState extends State<PlaceScreen> {
               _detail.description,
               maxLines: 4,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0XFF141414),
                 fontSize: 16,
                 fontFamily: 'SF Pro Display',
@@ -192,22 +188,18 @@ class _PlaceScreenState extends State<PlaceScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            ..._detail.reviews.map((review) => _MyBuildTextReview(review)).toList(),
-            _MyBuildImageRewiew(_detail.images),
+            ..._detail.reviews.map((review) => _myBuildTextReview(review)),
+            _myBuildImageReview(_detail.images),
             const SizedBox(height: 24),
             _buildBookNowButton(context),
             const SizedBox(height: 24),
-
           ],
         ),
       ),
     );
   }
 
-
-
-
-  Widget _MyBuildTextReview(Review review) {
+  Widget _myBuildTextReview(Review review) {
     return SizedBox(
       width: double.maxFinite,
       child: Column(
@@ -230,10 +222,10 @@ class _PlaceScreenState extends State<PlaceScreen> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 8),
+                    padding: const EdgeInsets.only(left: 8),
                     child: Text(
                       review.username,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0XFF141414),
                         fontSize: 16,
                         fontFamily: 'SF Pro Display',
@@ -245,14 +237,14 @@ class _PlaceScreenState extends State<PlaceScreen> {
               ],
             ),
           ),
-         // const SizedBox(height: 2),
+          // const SizedBox(height: 2),
           Align(
             alignment: Alignment.topLeft,
             child: Text(
               review.review,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0XFF141414),
                 fontSize: 16,
                 fontFamily: 'SF Pro Display',
@@ -266,16 +258,12 @@ class _PlaceScreenState extends State<PlaceScreen> {
     );
   }
 
-  Widget _MyBuildImageRewiew(List<String> images) {
-    // if (loading) {
-    //   return const Center(child: CircularProgressIndicator());
-    // }
-    //
+  Widget _myBuildImageReview(List<String> images) {
     if (images.isEmpty) {
       return const Center(child: Text('No places available'));
     }
 
-    return Container(
+    return SizedBox(
       height: 130,
       width: double.maxFinite,
       child: ListView.builder(
@@ -294,7 +282,6 @@ class _PlaceScreenState extends State<PlaceScreen> {
                   img, // Assuming Place has an imageUrl property
                   fit: BoxFit.cover,
                 ),
-
               ),
             ),
           );
@@ -302,9 +289,6 @@ class _PlaceScreenState extends State<PlaceScreen> {
       ),
     );
   }
-
-
-
 
   /// Section Widget
   Widget _buildBookNowButton(BuildContext context) {
@@ -328,7 +312,16 @@ class _PlaceScreenState extends State<PlaceScreen> {
             vertical: 14,
           ),
         ),
-        onPressed: () =>  BookingModalSheet(id: _detail.id).show_booking_modal_sheet(context),
+        onPressed: () {
+          showModalBottomSheet(
+            isScrollControlled: true,
+            elevation: 5,
+            context: context,
+            builder: (ctx) => BookingModalSheet(
+              onBooking: _onBooking,
+            ),
+          );
+        },
         child: const Text(
           "Book Now",
           style: TextStyle(
@@ -342,6 +335,91 @@ class _PlaceScreenState extends State<PlaceScreen> {
     );
   }
 
+  void _showBookingAlert(BuildContext context, String alert) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(alert),
+          actions: [
+            Center(
+              child: SizedBox(
+                width: double.maxFinite, // Set the width here
+                height: 35, // Set the height here
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0XFF6A62B6),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    visualDensity: const VisualDensity(
+                      vertical: -4,
+                      horizontal: -4,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    "Ok",
+                    style: TextStyle(
+                      color: Color(0XFFFFFFFF),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
+  void _postBooking({
+    required String phone,
+    required String comment,
+    required int peopleAmount,
+    required BuildContext context,
+    required int id,
+  }) async {
+    BookingRepository bookingRepository = BookingRepository();
 
- }
+    Booking bookingData = Booking(
+      phone: phone,
+      comment: comment,
+      people_amount: peopleAmount,
+      tourId: id,
+    );
+
+    var result = await bookingRepository.book(bookingInfo: bookingData);
+    if (result != null) {
+      print("Booking succeeded: $result");
+
+      if (!context.mounted) {
+        return;
+      }
+      ;
+      _showBookingAlert(context, 'Tour has been booked succesfully');
+    } else {
+      print("Booking failed");
+      if (!context.mounted) return;
+      _showBookingAlert(context, 'Booking failed');
+    }
+  }
+
+  void _onBooking({
+    required String comment,
+    required int peopleAmount,
+    required String phone,
+  }) {
+    _postBooking(
+      phone: phone,
+      comment: comment,
+      peopleAmount: peopleAmount,
+      context: context,
+      id: _detail.id,
+    );
+  }
+}
